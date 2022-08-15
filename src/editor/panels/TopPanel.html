@@ -4,8 +4,8 @@
   </div> <!-- title panel -->
   <div id="editor_panel">
     <div class="tool_sep"></div>
-    <se-button id="tool_source" title="tools.tool_source" shortcut="U" src="source.svg"></se-button>
-    <se-button id="tool_wireframe" title="tools.wireframe_mode" shortcut="F" src="wireframe.svg"></se-button>
+    <se-button id="tool_source" title="tools.tool_source" shortcut="U" src="source.svg" style="display:none"></se-button>
+    <se-button id="tool_wireframe" title="tools.wireframe_mode" shortcut="F" src="wireframe.svg" style="display:none"></se-button>
   </div> <!-- editor_panel -->
   <div id="history_panel">
     <div class="tool_sep"></div>
@@ -31,15 +31,15 @@
   </div>
   <div class="selected_panel">
     <div class="tool_sep"></div>
-    <se-input id="elem_id" data-attr="id" size="10" label="properties.id_label" title="properties.id"></se-input>
+    <se-input id="elem_id" data-attr="id" size="10" label="properties.id_label" title="properties.id" style="display:none"></se-input>
   </div>
   <div class="selected_panel">
-    <se-input id="elem_class" data-attr="class" size="10" label="properties.class_label" title="properties.class">
+    <se-input id="elem_class" data-attr="class" size="10" label="properties.class_label" title="properties.class" style="display:none">
     </se-input>
-    <se-spin-input size="3" id="angle" min=-180 max=180 step=5 src="angle.svg" title="properties.angle">
+    <se-spin-input size="3" id="angle" min=-180 max=180 step=5 src="angle.svg" title="properties.angle" style="display:none">
     </se-spin-input>
-    <se-spin-input size="2" id="blur" min=0 max=100 step=5 src="blur.svg" title="properties.blur"></se-spin-input>
-    <se-list id="tool_position" title="tools.align_to_page" label="" width="22px" height="22px">
+    <se-spin-input size="2" id="blur" min=0 max=100 step=5 src="blur.svg" title="properties.blur" style="display:none"></se-spin-input>
+    <se-list id="tool_position" title="tools.align_to_page" label="" width="22px" height="22px" style="display:none">
       <se-list-item id="tool_posleft" value="l" title="tools.align_left" src="align_left.svg" img-height="22px">
       </se-list-item>
       <se-list-item id="tool_poscenter" value="c" title="tools.align_center" src="align_center.svg"
@@ -60,10 +60,10 @@
   </div>
   <div class="xy_panel">
     <se-spin-input id="selected_x" data-attr="x" size="4" type="text" label="properties.x_label"
-                   title="properties.pos_x">
+                   title="properties.pos_x" style="display:none">
     </se-spin-input>
     <se-spin-input id="selected_y" data-attr="y" size="4" type="text" label="properties.y_label"
-                   title="properties.pos_y">
+                   title="properties.pos_y" style="display:none">
     </se-spin-input>
   </div>
   <!-- Buttons when multiple elements are selected -->
@@ -74,7 +74,7 @@
   </div>
   <div class="multiselected_panel">
     <div class="tool_sep"></div>
-    <se-button id="tool_group_elements" title="tools.group_elements" shortcut="G" src="group_elements.svg">
+    <se-button id="tool_group_elements" title="tools.group_elements" shortcut="G" src="group_elements.svg" style="display:none">
     </se-button>
     <se-button id="tool_make_link_multi" title="tools.make_link" src="globe_link.svg"></se-button>
     <se-button id="tool_align_left" title="tools.align_left" src="align_left.svg"></se-button>

@@ -136,7 +136,7 @@ export default class ConfigObj {
       extPath: './extensions',
       // DOCUMENT PROPERTIES
       // Change the following to a preference (already in the Document Properties dialog)?
-      dimensions: [360, 360],
+      dimensions: [1360.63, 1360.63],
       // EDITOR OPTIONS
       // Change the following to preferences (already in the Editor Options dialog)?
       gridSnapping: false,
@@ -176,14 +176,14 @@ export default class ConfigObj {
     this.defaultExtensions = [
       // 'ext-connector',
       // 'ext-eyedropper',
-      'ext-grid',
+      // 'ext-grid',
       // 'ext-imagelib',
       // 'ext-arrows',
       'ext-markers',
       // 'ext-overview_window', disabled until we fix performance issue
       'ext-panning',
       'ext-shapes',
-      'ext-polystar',
+      // 'ext-polystar',
       'ext-storage',
       'ext-server_opensave',
       'ext-opensave'

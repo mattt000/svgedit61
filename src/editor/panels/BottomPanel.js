@@ -148,14 +148,16 @@ class BottomPanel {
   */
   handlePalette (e) {
     e.preventDefault()
-    // shift key or right click for stroke
+    // shift key or right click for stroke -INVERTED Shift for FILL
     const { picker, color } = e.detail
     // Webkit-based browsers returned 'initial' here for no stroke
     const paint = color === 'none' ? new jGraduate.Paint() : new jGraduate.Paint({ alpha: 100, solidColor: color.substr(1) })
     if (picker === 'fill') {
-      $id('fill_color').setPaint(paint)
-    } else {
+      // $id('fill_color').setPaint(paint)
       $id('stroke_color').setPaint(paint)
+    } else {
+      $id('fill_color').setPaint(paint)
+      // $id('stroke_color').setPaint(paint)
     }
     this.editor.svgCanvas.setColor(picker, color)
     if (color !== 'none' && this.editor.svgCanvas.getPaintOpacity(picker) !== 1) {
@@ -180,7 +182,7 @@ class BottomPanel {
     $id('fill_color').setPaint(new jGraduate.Paint({ alpha: 100, solidColor: curConfig.initFill.color }))
     $id('stroke_color').setPaint(new jGraduate.Paint({ alpha: 100, solidColor: curConfig.initStroke.color }))
     $id('zoom').addEventListener('change', (e) => this.changeZoom.bind(this)(e.detail.value))
-    $id('stroke_color').addEventListener('change', (evt) => this.handleColorPicker.bind(this)('stroke', evt))
+    // $id('stroke_color').addEventListener('change', (evt) => this.handleColorPicker.bind(this)('stroke', evt))
     $id('fill_color').addEventListener('change', (evt) => this.handleColorPicker.bind(this)('fill', evt))
     $id('stroke_width').addEventListener('change', this.changeStrokeWidth.bind(this))
     $id('stroke_style').addEventListener('change', (evt) => this.handleStrokeAttr.bind(this)('stroke-dasharray', evt))
