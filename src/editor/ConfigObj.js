@@ -179,7 +179,7 @@ export default class ConfigObj {
       // 'ext-grid',
       // 'ext-imagelib',
       // 'ext-arrows',
-      'ext-markers',
+      // 'ext-markers',
       // 'ext-overview_window', disabled until we fix performance issue
       'ext-panning',
       'ext-shapes',
