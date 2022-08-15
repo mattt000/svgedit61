@@ -108,13 +108,14 @@ export default class ConfigObj {
      */
     this.defaultConfig = {
       canvasName: 'default',
+      baseUnit: 'mm',
       canvas_expansion: 3,
       initFill: {
         color: 'FF0000', // solid red
         opacity: 1
       },
       initStroke: {
-        width: 5,
+        width: 1.5,
         color: '000000', // solid black
         opacity: 1
       },
@@ -135,12 +136,12 @@ export default class ConfigObj {
       extPath: './extensions',
       // DOCUMENT PROPERTIES
       // Change the following to a preference (already in the Document Properties dialog)?
-      dimensions: [640, 480],
+      dimensions: [360, 360],
       // EDITOR OPTIONS
       // Change the following to preferences (already in the Editor Options dialog)?
       gridSnapping: false,
       gridColor: '#000',
-      baseUnit: 'px',
+      baseUnit: 'mm',
       snappingStep: 10,
       showRulers: true,
       // SOURCE OUTPUT BEHAVIOR
@@ -155,12 +156,12 @@ export default class ConfigObj {
       showGrid: false, // Set by ext-grid.js
       // EXTENSION-RELATED (STORAGE)
       noStorageOnLoad: false, // Some interaction with ext-storage.js; prevent even the loading of previously saved local storage
-      forceStorage: false, // Some interaction with ext-storage.js; strongly discouraged from modification as it bypasses user privacy by preventing them from choosing whether to keep local storage or not
+      forceStorage: true, // Some interaction with ext-storage.js; strongly discouraged from modification as it bypasses user privacy by preventing them from choosing whether to keep local storage or not
       emptyStorageOnDecline: false, // Used by ext-storage.js; empty any prior storage if the user declines to store
       // EXTENSION (CLIENT VS. SERVER SAVING/OPENING)
       avoidClientSide: false, // Deprecated in favor of `avoidClientSideDownload`
-      avoidClientSideDownload: false,
-      avoidClientSideOpen: false
+      avoidClientSideDownload: true,
+      avoidClientSideOpen: true
     }
 
     this.curPrefs = {}
@@ -174,7 +175,7 @@ export default class ConfigObj {
     */
     this.defaultExtensions = [
       // 'ext-connector',
-      'ext-eyedropper',
+      // 'ext-eyedropper',
       'ext-grid',
       // 'ext-imagelib',
       // 'ext-arrows',
@@ -184,6 +185,7 @@ export default class ConfigObj {
       'ext-shapes',
       'ext-polystar',
       'ext-storage',
+      'ext-server_opensave',
       'ext-opensave'
     ]
     this.curConfig = {
