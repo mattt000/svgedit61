@@ -111,11 +111,11 @@ export default class ConfigObj {
       baseUnit: 'mm',
       canvas_expansion: 3,
       initFill: {
-        color: 'FF0000', // solid red
+        color: 'none', // solid red
         opacity: 1
       },
       initStroke: {
-        width: 1.5,
+        width: "1.5mm",
         color: '000000', // solid black
         opacity: 1
       },
