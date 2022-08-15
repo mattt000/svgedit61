@@ -203,10 +203,10 @@ class LeftPanel {
     this.editor.$svgEditor.append(template.content.cloneNode(true))
     // register actions for left panel
     $click($id('tool_select'), this.clickSelect.bind(this))
+    $click($id('tool_zoom'), this.clickZoom.bind(this))
     $click($id('tool_fhpath'), this.clickFHPath.bind(this))
     $click($id('tool_text'), this.clickText.bind(this))
     $click($id('tool_image'), this.clickImage.bind(this))
-    $click($id('tool_zoom'), this.clickZoom.bind(this))
     $id('tool_zoom').addEventListener('dblclick', this.dblclickZoom.bind(this))
     // $click($id('tool_path'), this.clickPath.bind(this))
     // $click($id('tool_line'), this.clickLine.bind(this))

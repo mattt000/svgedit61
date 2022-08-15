@@ -342,6 +342,18 @@ hr {
   background-color: var(--main-bg-color);
   border: none;
 }
+#opacity {
+  visibility:hidden
+  display:none
+}
+#stroke_linejoin {
+  visibility:hidden
+  /* display:none */
+}
+#fill_color {
+  visibility:hidden
+  display:none
+}
 
 /*—————————————————————————————*/
 
