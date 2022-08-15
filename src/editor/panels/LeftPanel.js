@@ -208,8 +208,8 @@ class LeftPanel {
     $click($id('tool_image'), this.clickImage.bind(this))
     $click($id('tool_zoom'), this.clickZoom.bind(this))
     $id('tool_zoom').addEventListener('dblclick', this.dblclickZoom.bind(this))
-    $click($id('tool_path'), this.clickPath.bind(this))
-    $click($id('tool_line'), this.clickLine.bind(this))
+    // $click($id('tool_path'), this.clickPath.bind(this))
+    // $click($id('tool_line'), this.clickLine.bind(this))
 
     // flyout
     $click($id('tool_rect'), this.clickRect.bind(this))
