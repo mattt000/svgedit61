@@ -125,7 +125,8 @@ export default class ConfigObj {
         font_family: 'Serif'
       },
       initOpacity: 1,
-      initTool: 'select',
+      // initTool: 'select',
+      initTool: 'fhpath',
       exportWindowType: 'new', // 'same' (todo: also support 'download')
       wireframe: false,
       showlayers: false,
