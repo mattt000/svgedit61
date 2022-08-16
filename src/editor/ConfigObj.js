@@ -110,7 +110,6 @@ export default class ConfigObj {
       canvasName: 'default',
       baseUnit: 'mm',
       canvas_expansion: 3,
-      selectNew: true,
       initFill: {
         color: 'none', // solid red
         opacity: 1
@@ -163,7 +162,8 @@ export default class ConfigObj {
       // EXTENSION (CLIENT VS. SERVER SAVING/OPENING)
       avoidClientSide: false, // Deprecated in favor of `avoidClientSideDownload`
       avoidClientSideDownload: true,
-      avoidClientSideOpen: true
+      avoidClientSideOpen: true,
+      selectNew: false
     }
 
     this.curPrefs = {}
