@@ -534,7 +534,7 @@ class EditorStartup {
       if (this.configObj.curConfig.showRulers) {
         $editDialog.setAttribute('showrulers', true)
       }
-
+zoom
       if (this.configObj.curConfig.baseUnit) {
         $editDialog.setAttribute('baseunit', this.configObj.curConfig.baseUnit)
       }
