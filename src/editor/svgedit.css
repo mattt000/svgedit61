@@ -327,6 +327,7 @@ hr {
   overflow: auto;
   display: flex;
   align-items: center;
+  width: 350px;
   scrollbar-width: thin; /* Firefox */
 }
 

@@ -142,7 +142,6 @@ export default class ConfigObj {
       // Change the following to preferences (already in the Editor Options dialog)?
       gridSnapping: false,
       gridColor: '#000',
-      baseUnit: 'mm',
       snappingStep: 10,
       showRulers: true,
       // SOURCE OUTPUT BEHAVIOR
