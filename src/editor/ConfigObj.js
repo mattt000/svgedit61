@@ -110,6 +110,7 @@ export default class ConfigObj {
       canvasName: 'default',
       baseUnit: 'mm',
       canvas_expansion: 3,
+      selectNew: true,
       initFill: {
         color: 'none', // solid red
         opacity: 1
