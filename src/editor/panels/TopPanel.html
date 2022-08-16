@@ -72,38 +72,38 @@
     <se-button id="tool_clone_multi" title="tools.clone" shortcut="C" src="clone.svg"></se-button>
     <se-button id="tool_delete_multi" title="tools.del" shortcut="Delete/Backspace" src="delete.svg"></se-button>
   </div>
-  <div class="multiselected_panel" style="display:none">
+  <div class="multiselected_panel">
     <div class="tool_sep"></div>
-    <se-button id="tool_group_elements" title="tools.group_elements" shortcut="G" src="group_elements.svg">
+    <se-button id="tool_group_elements" title="tools.group_elements" shortcut="G" src="group_elements.svg" style="display:none">
     </se-button>
-    <se-button id="tool_make_link_multi" title="tools.make_link" src="globe_link.svg"></se-button>
-    <se-button id="tool_align_left" title="tools.align_left" src="align_left.svg"></se-button>
-    <se-button id="tool_align_center" title="tools.align_center" src="align_center.svg"></se-button>
-    <se-button id="tool_align_right" title="tools.align_right" src="align_right.svg"></se-button>
-    <se-button id="tool_align_top" title="tools.align_top" src="align_top.svg"></se-button>
-    <se-button id="tool_align_middle" title="tools.align_middle" src="align_middle.svg"></se-button>
-    <se-button id="tool_align_bottom" title="tools.align_bottom" src="align_bottom.svg"></se-button>
-    <se-button id="tool_align_distrib_horiz" title="tools.align_distrib_horiz" src="align_distrib_horiz.svg"></se-button>
-    <se-button id="tool_align_distrib_verti" title="tools.align_distrib_verti" src="align_distrib_verti.svg"></se-button>
+    <se-button id="tool_make_link_multi" title="tools.make_link" src="globe_link.svg" style="display:none"></se-button>
+    <se-button id="tool_align_left" title="tools.align_left" src="align_left.svg" style="display:none"></se-button>
+    <se-button id="tool_align_center" title="tools.align_center" src="align_center.svg" style="display:none"></se-button>
+    <se-button id="tool_align_right" title="tools.align_right" src="align_right.svg" style="display:none"></se-button>
+    <se-button id="tool_align_top" title="tools.align_top" src="align_top.svg" style="display:none"></se-button>
+    <se-button id="tool_align_middle" title="tools.align_middle" src="align_middle.svg" style="display:none"></se-button>
+    <se-button id="tool_align_bottom" title="tools.align_bottom" src="align_bottom.svg" style="display:none"></se-button>
+    <se-button id="tool_align_distrib_horiz" title="tools.align_distrib_horiz" src="align_distrib_horiz.svg" style="display:none"></se-button>
+    <se-button id="tool_align_distrib_verti" title="tools.align_distrib_verti" src="align_distrib_verti.svg" style="display:none"></se-button>
     <se-select id="tool_align_relative" label="tools.relativeTo"
                options="tools.selected_objects,tools.largest_object,tools.smallest_object,tools.page"
-               values="selected::largest::smallest::page">
+               values="selected::largest::smallest::page" style="display:none">
       </se-list-item>
     </se-select>
   </div> <!-- multiselected_panel -->
-  <div class="rect_panel" style="display:none">
+  <div class="rect_panel">
     <se-spin-input id="rect_width" data-attr="width" size="4" label="properties.w_label"
-                   title="properties.rect_width"></se-spin-input>
+                   title="properties.rect_width" style="display:none"></se-spin-input>
     <se-spin-input id="rect_height" data-attr="height" size="4" label="properties.h_label"
-                   title="properties.rect_height"></se-spin-input>
+                   title="properties.rect_height" style="display:none"></se-spin-input>
     <se-spin-input id="rect_rx" min=0 max=1000 step=1 size="3" title="properties.corner_radius"
-                   data-attr="Corner Radius" src="c_radius.svg"></se-spin-input>
+                   data-attr="Corner Radius" src="c_radius.svg" style="display:none"></se-spin-input>
   </div> <!-- rect_panel -->
   <div class="image_panel">
     <se-spin-input id="image_width" data-attr="width" size="4" type="text" label="properties.w_label"
-                   title="properties.image_width"></se-spin-input>
+                   title="properties.image_width" style="display:none"></se-spin-input>
     <se-spin-input id="image_height" data-attr="height" size="4" type="text" label="properties.h_label"
-                   title="properties.image_height"></se-spin-input>
+                   title="properties.image_height" style="display:none"></se-spin-input>
   </div>
   <div class="image_panel">
     <se-input id="image_url" data-attr="image_url" size="15" label="properties.image_url"></se-input>
