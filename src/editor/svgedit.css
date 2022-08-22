@@ -310,6 +310,7 @@ hr {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-start;
+  width: 350px;
   background-color: var(--main-bg-color);
 }
 
