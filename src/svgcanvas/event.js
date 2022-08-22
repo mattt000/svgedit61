@@ -752,12 +752,6 @@ const mouseUpEvent = (evt) => {
         })
         svgCanvas.call('changed', [element])
         keep = true
-        
-        const prevSize = localStorage.getItem('fhpathWidth')
-
-        if (prevSize) {
-          element.setAttribute('stroke-width', prevSize);
-      }
       break
     case 'text':
       keep = true
