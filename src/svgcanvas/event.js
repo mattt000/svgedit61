@@ -752,6 +752,7 @@ const mouseUpEvent = (evt) => {
         })
         svgCanvas.call('changed', [element])
         keep = true
+        }
       break
     case 'text':
       keep = true
