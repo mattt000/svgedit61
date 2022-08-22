@@ -310,7 +310,7 @@ hr {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-start;
-  width: 350px;
+  width: 450px;
   background-color: var(--main-bg-color);
 }
 
@@ -328,7 +328,7 @@ hr {
   overflow: auto;
   display: flex;
   align-items: center;
-  width: 350px;
+  width: 380px;
   scrollbar-width: thin; /* Firefox */
 }
 
