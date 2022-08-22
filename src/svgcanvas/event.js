@@ -4,20 +4,17 @@
  * @license MIT
  * @copyright 2011 Jeff Schiller
  */
-import {
-  assignAttributes, cleanupElement, getElement, getRotationAngle, snapToGrid, walkTree,
-  preventClickDefault, setHref, getBBox
-} from './utilities.js'
-import {
+ import {
   convertAttrs
 } from '../common/units.js'
-import {
-  transformPoint, hasMatrixTransform, getMatrix, snapToAngle
-} from './math.js'
-import * as draw from './draw.js'
-import * as pathModule from './path.js'
-import * as hstry from './history.js'
 import { findPos } from '../editor/components/jgraduate/Util.js'
+import * as draw from './draw.js'
+import * as hstry from './history.js'
+import { getMatrix, hasMatrixTransform, snapToAngle, transformPoint } from './math.js'
+import * as pathModule from './path.js'
+import {
+  assignAttributes, cleanupElement, getBBox, getElement, getRotationAngle, preventClickDefault, setHref, snapToGrid, walkTree
+} from './utilities.js'
 
 const {
   InsertElementCommand
@@ -142,7 +139,7 @@ const mouseMoveEvent = (evt) => {
   }
 
   let tlist
-  switch (svgCanvas.getCurrentMode()) {
+  switch (svgCanvas.getCurrentMode()) {    
     case 'select': {
       // we temporarily use a translate on the element(s) being dragged
       // this transform is removed upon mousing up and the element is
@@ -439,6 +436,7 @@ const mouseMoveEvent = (evt) => {
       svgCanvas.setControllPoint1('x', svgCanvas.getStart('x'))
       svgCanvas.setControllPoint1('y', svgCanvas.getStart('y'))
       svgCanvas.setStart({ x: svgCanvas.getEnd('x'), y: svgCanvas.getEnd('y') })
+
       break
       // update path stretch line coordinates
     }
@@ -669,6 +667,8 @@ const mouseUpEvent = (evt) => {
       // causes problems.
       // Webkit ignores how we set the points attribute with commas and uses space
       // to separate all coordinates, see https://bugs.webkit.org/show_bug.cgi?id=29870
+     
+
       svgCanvas.setSumDistance(0)
       svgCanvas.setControllPoint2('x', 0)
       svgCanvas.setControllPoint2('y', 0)
@@ -682,7 +682,14 @@ const mouseUpEvent = (evt) => {
       keep = commaIndex >= 0 ? coords.includes(',', commaIndex + 1) : coords.includes(' ', coords.indexOf(' ') + 1)
       if (keep) {
         element = svgCanvas.pathActions.smoothPolylineIntoPath(element)
+        const prevSize = localStorage.getItem('fhpathWidth')
+
+        if (prevSize) {
+          element.setAttribute('stroke-width', prevSize);
+        }
+
       }
+
       break
     } case 'line': {
       const x1 = element.getAttribute('x1')
