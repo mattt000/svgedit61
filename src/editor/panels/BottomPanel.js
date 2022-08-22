@@ -184,6 +184,7 @@ class BottomPanel {
     const { curConfig } = this.editor.configObj
     $id('fill_color').setPaint(new jGraduate.Paint({ alpha: 100, solidColor: curConfig.initFill.color }))
     $id('stroke_color').setPaint(new jGraduate.Paint({ alpha: 100, solidColor: curConfig.initStroke.color }))
+    $id('button_zoom').addEventListener('change', (e) => this.changeZoom.bind(this)(e.detail.value))
     $id('zoom').addEventListener('change', (e) => this.changeZoom.bind(this)(e.detail.value))
     $id('stroke_color').addEventListener('change', (evt) => this.handleColorPicker.bind(this)('stroke', evt))
     $id('fill_color').addEventListener('change', (evt) => this.handleColorPicker.bind(this)('fill', evt))

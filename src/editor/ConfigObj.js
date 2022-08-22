@@ -115,7 +115,7 @@ export default class ConfigObj {
         opacity: 1
       },
       initStroke: {
-        width: "10mm",
+        width: "1.5mm",
         color: '000000', // solid black
         opacity: 1
       },

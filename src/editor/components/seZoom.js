@@ -6,7 +6,7 @@ template.innerHTML = `
     border:unset;
     background-color:var(--input-color);
     min-width:unset;
-    width:40px;
+    width:50px;
     height:23px;
     padding:1px 2px;
     border:2px;
