@@ -6,7 +6,6 @@
  * @copyright 2010 Alexis Deveria
  *
  */
-import { Canvg as canvg } from 'canvg';
 
 const loadExtensionTranslation = async function (lang) {
   let translationModule;
@@ -26,6 +25,7 @@ export default {
   async init ({ decode64, encode64 }) {
     const svgEditor = this;
     const strings = await loadExtensionTranslation(svgEditor.configObj.pref('lang'));
+    
     const {
       curConfig: {
         avoidClientSide, // Deprecated
@@ -296,5 +296,8 @@ export default {
     $id('tool_open').insertBefore(openSvgForm, $id('tool_open').firstChild);
     $id('tool_import').insertBefore(importSvgForm, $id('tool_import').firstChild);
     $id('tool_image').insertBefore(importImgForm, $id('tool_image').firstChild);
+
+    return {
+    }
   }
 };

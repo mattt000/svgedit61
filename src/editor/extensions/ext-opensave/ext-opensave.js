@@ -17,8 +17,15 @@
    */
 import { fileOpen, fileSave } from 'browser-fs-access'
 
+import opendialog from './opendialog.html'
+
+
+const openDialopTemplate = document.createElement('div')
+openDialopTemplate.innerHTML = opendialog
+
 const name = 'opensave'
 let handle = null
+const API_BASE_URL = 'http://localhost:5000'
 
 const loadExtensionTranslation = async function (svgEditor) {
   let translationModule
@@ -144,7 +151,11 @@ export default {
      *  will make it do something.
      * @returns {void}
      */
-    const clickOpen = async function () {
+    const clickOpen = async function () { 
+      // hide dialog form window
+      const openFileUploadDialog = document.querySelector("#openFileUploadDialog")
+      if (openFileUploadDialog) openDialopTemplate.remove();
+
       // ask user before clearing an unsaved SVG
       const response = await svgEditor.openPrep()
       if (response === 'Cancel') { return }
@@ -170,6 +181,82 @@ export default {
         }
       }
     }
+
+    /**
+     * Fetch svg from server
+     * @param {string} url
+     * @returns {Array}
+     */
+    const fetchImages = async (url) => {
+      let images = []
+      await fetch(url)
+        .then((response) => response.json())
+        .then((data) => images = data)
+        .catch( (err) => new Error(err));
+
+        return images
+    }
+
+    // open dialog to upload svg image
+    const clickOpenDialog = async () => {
+      const imageContainer = openDialopTemplate.querySelector('#imageContainer')
+      const uploadFromPcButton = openDialopTemplate.querySelector('#uploadFromPcButton');
+      const closeButton = openDialopTemplate.querySelector('#closeOpenPopUp');
+
+      const images = await fetchImages(`${API_BASE_URL}/api/svgvendors/all`);
+
+      if (images && images.length > 0) {
+        const isRemove = removeChilds(imageContainer);
+        
+        if (isRemove) {
+          images.forEach((image)=> {
+            const imgElement = document.createElement('img')
+            imgElement.classList.add('imageContainerChild')
+            imgElement.src =`${API_BASE_URL}/uploads/${image.image}`;
+            imageContainer.appendChild(imgElement)
+          })
+        }
+      } else {
+        const errorNode = document.createElement('p');
+        errorNode.innerText = "Not found!"
+        imageContainer.appendChild(errorNode)
+      }
+
+      document.querySelector('body').appendChild(openDialopTemplate);
+
+      uploadFromPcButton.addEventListener('click', clickOpen) 
+      closeButton.addEventListener('click', ()=> {
+        openDialopTemplate.remove()
+      })
+
+      // load svg from suggestion
+      imageContainer.addEventListener('click', e => {
+        if (e.target.classList.contains('imageContainerChild')) {
+          let currentSrc = e.target.currentSrc;
+          svgEditor.loadFromURL(currentSrc);
+          openDialopTemplate.remove()
+        }
+      });
+
+    }
+
+    /**
+     * Remove childs nodes
+     * @param {Node} parentNode
+     * @returns {true}
+     */
+    const removeChilds = (parentNode) => {
+      if (parentNode) {
+        let child = parentNode.lastElementChild; 
+        while (child) {
+          parentNode.removeChild(child);
+          child = parentNode.lastElementChild;
+        }
+      }
+
+      return true;
+    }
+
     const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
       const byteCharacters = atob(b64Data)
       const byteArrays = []
@@ -234,6 +321,8 @@ export default {
             name: handle.name,
             kind: handle.kind
           })
+
+          saveToServer(`${API_BASE_URL}/api/svgvendors/create`, blob, svgEditor.title)
         } catch (err) {
           if (err.name !== 'AbortError') {
             return console.error(err)
@@ -241,6 +330,27 @@ export default {
         }
       }
     }
+
+    /**
+     * Save svg image to server
+     * @param {string} apiURL 
+     * @param {blob} blob
+     * @param {string} fileName
+     * @return {void}  
+     */
+
+    const saveToServer = async (apiURL, blob, fileName) => {
+      const formData = new FormData();
+      formData.append('image', blob, `${fileName}.svg`)
+
+      await fetch(apiURL, {
+        method: "POST",
+        body: formData,
+      }).catch (err => {
+        return new Error(err);
+      })
+    }
+
 
     return {
       name: svgEditor.i18next.t(`${name}:name`),
@@ -260,7 +370,7 @@ export default {
 
         // handler
         $click($id('tool_clear'), clickClear.bind(this))
-        $click($id('tool_open'), clickOpen.bind(this))
+        $click($id('tool_open'), clickOpenDialog.bind(this))
         $click($id('tool_save'), clickSave.bind(this, 'save'))
         $click($id('tool_save_as'), clickSave.bind(this, 'saveas'))
         $click($id('tool_import'), () => imgImport.click())

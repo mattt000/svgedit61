@@ -1,0 +1,101 @@
+<style>
+  .open-popup {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Verdana, Helvetica, Arial;
+  }
+
+  .open-popup-inner {
+    width: 700px;
+    height: 500px;
+    background-color: #5a6162;
+    border: 1px solid #bebebe;
+    /* border-radius: 5px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .browse-btn {
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #808080;
+    margin: 10px;
+    /* border-radius: 5px; */
+    margin-bottom: 30px;
+  }
+
+  .browse-btn button {
+    padding: 6px;
+    border-radius: 0;
+    outline: none;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    color: #b2b2b2;
+    height: 100%;
+    width: 100%;
+  }
+
+  .img-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 5px;
+  }
+
+  .img-container img {
+    width: calc(90% / 4);
+    aspect-ratio: 16/10;
+    object-fit: contain;
+    cursor: pointer;
+    border: 1px solid #808080;
+  }
+
+  .actions {
+    text-align: right;
+    padding: 10px;
+  }
+
+  .actions button {
+    padding: 8px 15px;
+  }
+
+  .img-container p {
+    text-align: center;
+    display: block;
+    color: #b2b2b2;
+    width: 100%;
+    font-size: 15px;
+  }
+</style>
+
+<div id="openFileUploadDialog" class="open-popup">
+  <div class="open-popup-inner">
+    <div class="browse-btn">
+      <button id="uploadFromPcButton" class="local-upload">
+        Browse from your computer
+      </button>
+    </div>
+
+    <div id="imageContainer" class="img-container"></div>
+    <div class="actions">
+      <button id="closeOpenPopUp">Close</button>
+    </div>
+  </div>
+</div>
