@@ -128,6 +128,12 @@ const mouseMoveEvent = (evt) => {
   const mouseY = pt.y * zoom
   const shape = getElement(svgCanvas.getId())
 
+  const prevStrokeWidth = localStorage.getItem('fhpathWidth')
+
+  if (prevStrokeWidth) {
+    shape.setAttribute('stroke-width', prevStrokeWidth);
+  }
+
   let realX = mouseX / zoom
   let x = realX
   let realY = mouseY / zoom
@@ -682,12 +688,6 @@ const mouseUpEvent = (evt) => {
       keep = commaIndex >= 0 ? coords.includes(',', commaIndex + 1) : coords.includes(' ', coords.indexOf(' ') + 1)
       if (keep) {
         element = svgCanvas.pathActions.smoothPolylineIntoPath(element)
-        const prevSize = localStorage.getItem('fhpathWidth')
-
-        if (prevSize) {
-          element.setAttribute('stroke-width', prevSize);
-        }
-
       }
 
       break
@@ -729,8 +729,8 @@ const mouseUpEvent = (evt) => {
             cy: (svgCanvas.getFreehand('miny') + svgCanvas.getFreehand('maxy')) / 2,
             rx: (svgCanvas.getFreehand('maxx') - svgCanvas.getFreehand('minx')) / 2,
             ry: (svgCanvas.getFreehand('maxy') - svgCanvas.getFreehand('miny')) / 2,
-            id: svgCanvas.getId()
-          }
+            id: svgCanvas.getId(),
+          },
         })
         svgCanvas.call('changed', [element])
         keep = true
@@ -1190,7 +1190,8 @@ const mouseDownEvent = (evt) => {
       break
     case 'line': {
       svgCanvas.setStarted(true)
-      const strokeW = Number(curShape.stroke_width) === 0 ? 1 : curShape.stroke_width
+      // const strokeW = Number(curShape.stroke_width) === 0 ? 1 : curShape.stroke_width
+      const strokeW = localStorage.getItem("fhpathWidth");
       svgCanvas.addSVGElementsFromJson({
         element: 'line',
         curStyles: true,
