@@ -25,7 +25,7 @@ openDialopTemplate.innerHTML = opendialog
 
 const name = 'opensave'
 let handle = null
-const API_BASE_URL = 'http://localhost:5000'
+const API_BASE_URL = 'https://svgedit72.herokuapp.com'
 
 const loadExtensionTranslation = async function (svgEditor) {
   let translationModule
@@ -203,17 +203,25 @@ export default {
       const uploadFromPcButton = openDialopTemplate.querySelector('#uploadFromPcButton');
       const closeButton = openDialopTemplate.querySelector('#closeOpenPopUp');
 
-      const images = await fetchImages(`${API_BASE_URL}/api/svgvendors/all`);
+      const images = await fetchImages(`${API_BASE_URL}/api/upload-svg/all`);
 
       if (images && images.length > 0) {
         const isRemove = removeChilds(imageContainer);
         
         if (isRemove) {
           images.forEach((image)=> {
-            const imgElement = document.createElement('img')
-            imgElement.classList.add('imageContainerChild')
-            imgElement.src =`${API_BASE_URL}/uploads/${image.image}`;
-            imageContainer.appendChild(imgElement)
+            const imageEl = document.createElement('img')
+            const imageNameEl = document.createElement('p')
+            const imageItemEl = document.createElement('div')
+
+            imageEl.src =`${API_BASE_URL}/uploads/${image.url}`;
+            imageNameEl.innerText = image.name;
+
+            imageEl.classList.add('imageContainerChildImage')
+            imageItemEl.classList.add('imageContainerChild')
+            imageItemEl.appendChild(imageEl)
+            imageItemEl.appendChild(imageNameEl)
+            imageContainer.appendChild(imageItemEl)
           })
         }
       } else {
@@ -231,7 +239,7 @@ export default {
 
       // load svg from suggestion
       imageContainer.addEventListener('click', e => {
-        if (e.target.classList.contains('imageContainerChild')) {
+        if (e.target.classList.contains('imageContainerChildImage')) {
           let currentSrc = e.target.currentSrc;
           svgEditor.loadFromURL(currentSrc);
           openDialopTemplate.remove()
@@ -322,7 +330,7 @@ export default {
             kind: handle.kind
           })
 
-          saveToServer(`${API_BASE_URL}/api/svgvendors/create`, blob, svgEditor.title)
+          saveToServer(`${API_BASE_URL}/api/upload-svg/create`, blob, svgEditor.title)
         } catch (err) {
           if (err.name !== 'AbortError') {
             return console.error(err)
