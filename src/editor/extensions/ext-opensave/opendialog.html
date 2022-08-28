@@ -62,10 +62,15 @@
   .img-container .imageContainerChild {
     width: calc(90% / 4);
     aspect-ratio: 16/10;
-    object-fit: contain;
     cursor: pointer;
     border: 1px solid #808080;
     text-align: center;
+  }
+
+  .imageContainerChild img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 
   .actions {
@@ -87,6 +92,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     padding: 0 5px;
+  }
+
+  .img-container p.message {
+    text-align: center;
   }
 </style>
 

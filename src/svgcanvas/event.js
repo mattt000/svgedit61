@@ -688,7 +688,13 @@ const mouseUpEvent = (evt) => {
       keep = commaIndex >= 0 ? coords.includes(',', commaIndex + 1) : coords.includes(' ', coords.indexOf(' ') + 1)
       if (keep) {
         element = svgCanvas.pathActions.smoothPolylineIntoPath(element)
+     
+        const prevStrokeWidth = localStorage.getItem('fhpathWidth')
+        if (prevStrokeWidth) {
+          element.setAttribute('stroke-width', prevStrokeWidth);
+        }
       }
+
 
       break
     } case 'line': {

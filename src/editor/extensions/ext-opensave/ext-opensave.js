@@ -198,39 +198,22 @@ export default {
     }
 
     // open dialog to upload svg image
-    const clickOpenDialog = async () => {
+    const clickOpenDialog =  () => {
       const imageContainer = openDialopTemplate.querySelector('#imageContainer')
       const uploadFromPcButton = openDialopTemplate.querySelector('#uploadFromPcButton');
       const closeButton = openDialopTemplate.querySelector('#closeOpenPopUp');
 
-      const images = await fetchImages(`${API_BASE_URL}/api/upload-svg/all`);
+      document.querySelector('body').appendChild(openDialopTemplate);
 
-      if (images && images.length > 0) {
-        const isRemove = removeChilds(imageContainer);
-        
-        if (isRemove) {
-          images.forEach((image)=> {
-            const imageEl = document.createElement('img')
-            const imageNameEl = document.createElement('p')
-            const imageItemEl = document.createElement('div')
-
-            imageEl.src =`${API_BASE_URL}/uploads/${image.url}`;
-            imageNameEl.innerText = image.name;
-
-            imageEl.classList.add('imageContainerChildImage')
-            imageItemEl.classList.add('imageContainerChild')
-            imageItemEl.appendChild(imageEl)
-            imageItemEl.appendChild(imageNameEl)
-            imageContainer.appendChild(imageItemEl)
-          })
-        }
-      } else {
-        const errorNode = document.createElement('p');
-        errorNode.innerText = "Not found!"
-        imageContainer.appendChild(errorNode)
+      const isRemove = removeChilds(imageContainer);        
+      if (isRemove) {
+        pushImagesToDomDialog(imageContainer)
       }
 
-      document.querySelector('body').appendChild(openDialopTemplate);
+      const messageNode = document.createElement('p');
+      messageNode.classList.add('message')
+      messageNode.innerText = "Loading..."
+      imageContainer.appendChild(messageNode)
 
       uploadFromPcButton.addEventListener('click', clickOpen) 
       closeButton.addEventListener('click', ()=> {
@@ -246,6 +229,38 @@ export default {
         }
       });
 
+    }
+
+    /**
+     * Show images in dialog
+     * @param {Node} imageContainer
+     * @returns {void}
+     */
+
+    const pushImagesToDomDialog = async (imageContainer) => {
+      const images = await fetchImages(`${API_BASE_URL}/api/upload-svg/all`);
+      const messageNode = imageContainer.querySelector('.message')
+
+      if (images && images.length > 0) {
+        messageNode.remove();
+
+        images.forEach((image)=> {
+          const imageEl = document.createElement('img')
+          const imageNameEl = document.createElement('p')
+          const imageItemEl = document.createElement('div')
+
+          imageEl.src =`${API_BASE_URL}/uploads/${image.url}`;
+          imageNameEl.innerText = image.name;
+
+          imageEl.classList.add('imageContainerChildImage')
+          imageItemEl.classList.add('imageContainerChild')
+          imageItemEl.appendChild(imageEl)
+          imageItemEl.appendChild(imageNameEl)
+          imageContainer.appendChild(imageItemEl)
+        })
+      } else {        
+        messageNode.innerHTML = "Not found!"
+      }
     }
 
     /**
