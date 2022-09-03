@@ -73,7 +73,7 @@ export class SEPalette extends HTMLElement {
       svgEditor.$click(newDiv, (evt) => {
         evt.preventDefault()
         // shift key or right click for stroke
-        const picker = evt.shiftKey || evt.button === 2 ? 'stroke' : 'fill'
+        const picker = evt.shiftKey || evt.button === 2 ? 'fill' : 'stroke'
         let color = newDiv.dataset.rgb
         // Webkit-based browsers returned 'initial' here for no stroke
         if (color === 'none' || color === 'transparent' || color === 'initial') {
