@@ -17,8 +17,8 @@
    */
 import { fileOpen, fileSave } from 'browser-fs-access'
 
-import opendialog from './opendialog.html'
 import buttonsNodes from './bottomButtons.html'
+import opendialog from './opendialog.html'
 
 
 const openDialopTemplate = document.createElement('div')
@@ -199,7 +199,7 @@ export default {
     }
 
     // open dialog to upload svg image
-    const clickOpenDialog =  () => {
+    const clickOpenDialog = () => {
       const imageContainer = openDialopTemplate.querySelector('#imageContainer')
       const uploadFromPcButton = openDialopTemplate.querySelector('#uploadFromPcButton');
       const closeButton = openDialopTemplate.querySelector('#closeOpenPopUp');
@@ -221,15 +221,35 @@ export default {
         openDialopTemplate.remove()
       })
 
+
       // load svg from suggestion
-      imageContainer.addEventListener('click', e => {
+      imageContainer.addEventListener('click', async (e) => {
         if (e.target.classList.contains('imageContainerChildImage')) {
           let currentSrc = e.target.currentSrc;
           svgEditor.loadFromURL(currentSrc);
           openDialopTemplate.remove()
         }
-      });
 
+        if (e.target.classList.contains('opensaveDeleteBtn')) {
+          const id = e.target.getAttribute('data-id')
+          const apiUrl = `${API_BASE_URL}/api/upload-svg?id=${id}`
+          await deleteImageFromServer(apiUrl);
+          e.target.parentNode.remove();
+        }
+      });     
+    }
+
+    /**
+     * remove image from server
+     * @param {string} url
+     * @returns {void}
+     */
+    const deleteImageFromServer = async (url) => {
+      await fetch(url, {
+        method: 'delete'
+      })
+        .then((response) => response.json())
+        .catch( (err) => new Error(err));
     }
 
     /**
@@ -247,18 +267,28 @@ export default {
 
         images.forEach((image)=> {
           const imageEl = document.createElement('img')
+          const deleteIconEl = document.createElement('img')
           const imageNameEl = document.createElement('p')
           const imageItemEl = document.createElement('div')
+          const deleteButtonEl = document.createElement('button')
+
+          deleteIconEl.src = './images/trash_icon.svg';
+          deleteButtonEl.append(deleteIconEl)
+          deleteButtonEl.setAttribute('data-id', image._id)
 
           imageEl.src =`${API_BASE_URL}/uploads/${image.url}`;
           imageNameEl.innerText = image.name;
 
           imageEl.classList.add('imageContainerChildImage')
           imageItemEl.classList.add('imageContainerChild')
+          deleteButtonEl.classList.add('opensaveDeleteBtn')
+          
           imageItemEl.appendChild(imageEl)
           imageItemEl.appendChild(imageNameEl)
           imageContainer.appendChild(imageItemEl)
+          imageItemEl.append(deleteButtonEl)
         })
+
       } else {        
         messageNode.innerHTML = "Not found!"
       }

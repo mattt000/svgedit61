@@ -31,8 +31,6 @@
     justify-content: center;
     border: 1px solid #808080;
     margin: 10px;
-    /* border-radius: 5px; */
-    margin-bottom: 30px;
   }
 
   .browse-btn button {
@@ -46,6 +44,7 @@
     color: #b2b2b2;
     height: 100%;
     width: 100%;
+    min-height: 100px;
   }
 
   .img-container {
@@ -65,6 +64,7 @@
     cursor: pointer;
     border: 1px solid #808080;
     text-align: center;
+    position: relative;
   }
 
   .imageContainerChild img {
@@ -96,6 +96,28 @@
 
   .img-container p.message {
     text-align: center;
+  }
+
+  .opensaveDeleteBtn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    outline: none;
+    border: none;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 5px;
+    display: none;
+  }
+  .opensaveDeleteBtn img {
+    pointer-events: none;
+  }
+  
+  .imageContainerChild:hover .opensaveDeleteBtn {
+    display: block;
   }
 </style>
 
