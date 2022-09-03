@@ -155,11 +155,11 @@ class BottomPanel {
     // Webkit-based browsers returned 'initial' here for no stroke
     const paint = color === 'none' ? new jGraduate.Paint() : new jGraduate.Paint({ alpha: 100, solidColor: color.substr(1) })
     if (picker === 'fill') {
-      // $id('fill_color').setPaint(paint)
-      $id('stroke_color').setPaint(paint)
-    } else {
       $id('fill_color').setPaint(paint)
-      // $id('stroke_color').setPaint(paint)
+//       $id('stroke_color').setPaint(paint)
+    } else {
+//       $id('fill_color').setPaint(paint)
+      $id('stroke_color').setPaint(paint)
     }
     this.editor.svgCanvas.setColor(picker, color)
     if (color !== 'none' && this.editor.svgCanvas.getPaintOpacity(picker) !== 1) {
