@@ -18,6 +18,7 @@
 import { fileOpen, fileSave } from 'browser-fs-access'
 
 import opendialog from './opendialog.html'
+import buttonsNodes from './bottomButtons.html'
 
 
 const openDialopTemplate = document.createElement('div')
@@ -391,12 +392,22 @@ export default {
         const importButtonTemplate = '<se-menu-item id="tool_import" label="tools.import_doc" src="importImg.svg"></se-menu-item>'
         svgCanvas.insertChildAtIndex($id('main_button'), importButtonTemplate, 4)
 
+        // Add the button and its handler(s)
+        const buttonsTemplate = document.createElement('template')
+        buttonsTemplate.innerHTML = buttonsNodes;
+
+        $id('tools_bottom').append(buttonsTemplate.content.cloneNode(true))
+
         // handler
         $click($id('tool_clear'), clickClear.bind(this))
         $click($id('tool_open'), clickOpenDialog.bind(this))
         $click($id('tool_save'), clickSave.bind(this, 'save'))
         $click($id('tool_save_as'), clickSave.bind(this, 'saveas'))
         $click($id('tool_import'), () => imgImport.click())
+
+        $click($id('opensaveBottomOpen'), clickOpenDialog.bind(this))
+        $click($id('opensaveBottomSave'), clickSave.bind(this, 'save'))
+        $click($id('opensaveBottomSaveAs'), clickSave.bind(this, 'saveas'))
       }
     }
   }

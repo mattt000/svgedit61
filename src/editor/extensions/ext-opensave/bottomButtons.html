@@ -1,0 +1,55 @@
+<style>
+  #palette {
+    margin-left: 0;
+    margin-right: 5px;
+  }
+
+  #tools_bottom {
+    width: 100%;
+  }
+  .opensave-buttons {
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 5px;
+    margin: 0 5px;
+  }
+
+  .opensave-buttons button {
+    font-size: inherit;
+    font-weight: inherit;
+    padding: 5px;
+    height: 24px;
+    background-color: #2b3c45;
+    outline: none;
+    border: none;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+  }
+
+  .opensave-buttons button img {
+    --size: 15px;
+    width: var(--size);
+    height: var(--size);
+    margin-right: 4px;
+  }
+</style>
+
+<div class="opensave-buttons">
+  <button id="opensaveBottomOpen">
+    <img src="./images/open.svg" alt="" />
+    Open
+  </button>
+  <button id="opensaveBottomSave">
+    <img src="./images/saveImg.svg" alt="" />
+    Save
+  </button>
+  <button id="opensaveBottomSaveAs">
+    <img src="./images/saveImg.svg" alt="" />Save as
+  </button>
+</div>

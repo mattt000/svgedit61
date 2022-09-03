@@ -187,6 +187,7 @@ export default class ConfigObj {
       // 'ext-polystar',
       'ext-storage',
       'ext-server_opensave',
+      'ext-quick_navtools',
       'ext-opensave',
     ]
     this.curConfig = {
