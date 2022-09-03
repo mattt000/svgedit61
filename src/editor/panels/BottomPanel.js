@@ -43,7 +43,6 @@ class BottomPanel {
     this.editor.svgCanvas.setStrokeWidth(val)
 
     localStorage.setItem('fhpathWidth', val)
-    console.log('change');
   }
 
   /**
