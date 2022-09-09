@@ -25,6 +25,13 @@ export default {
     const { svgCanvas } = svgEditor
     const { $id, $click } = svgCanvas
 
+      /**
+    * @type {module}
+    */
+    const changeZoom = () => {
+      svgEditor.zoomChanged(window, 'canvas')
+    }
+
     return {
       callback () {
         // Add the button and its handler(s)
@@ -33,9 +40,7 @@ export default {
 
         $id('tools_bottom').append(buttonsTemplate.content.cloneNode(true))
 
-        $click($id('navToolZoomToFit'), () => {
-          console.log('click zoom to fit');
-        })
+        $click($id('navToolZoomToFit'), changeZoom)
 
         $click($id('navTool15Pen'), () => {
           localStorage.setItem('fhpathWidth', '1.5mm');
