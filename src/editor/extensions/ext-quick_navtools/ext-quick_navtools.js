@@ -51,6 +51,17 @@ export default {
           localStorage.setItem('fhpathWidth', '2mm');
           $id('stroke_width').value = '2mm';
         })
+        
+        $click($id('navTool100Opacity'), () => {
+          // Raihan please set the opacity of the object to 100% (1.0)
+          $id('opacity').value = '1';
+        })
+        
+        $click($id('navTool50Opacity'), () => {
+          // Raihan please set the opacity of the object to 50% (0.5)
+          $id('opacity').value = '0.5';
+
+        })
       },
     }
   }
