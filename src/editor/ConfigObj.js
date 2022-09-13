@@ -39,7 +39,7 @@ export default class ConfigObj {
         * Will default to 's' if the window height is smaller than the minimum
         * height and 'm' otherwise.
         */
-      bkgd_color: '#FFF',
+      bkgd_color: '#888',
       bkgd_url: '',
       // DOCUMENT PROPERTIES (DIALOG)
       img_save: 'embed',
@@ -115,8 +115,8 @@ export default class ConfigObj {
         opacity: 1
       },
       initStroke: {
-        width: "10mm",
-        color: '000000', // solid black
+        width: "2mm",
+        color: 'FFFFFF', // solid white
         opacity: 1
       },
       text: {
