@@ -143,7 +143,7 @@ export default class ConfigObj {
       gridSnapping: false,
       gridColor: '#000',
       snappingStep: 10,
-      showRulers: true,
+      showRulers: false,
       // SOURCE OUTPUT BEHAVIOR
       dynamicOutput: false,
       // URL BEHAVIOR CONFIGURATION

@@ -17,8 +17,8 @@
 
 .svg_editor {
   display: grid;
-  grid-template-rows: auto 15px 1fr 40px;
-  grid-template-columns: 40px 15px 50px 1fr 15px;
+  grid-template-rows: auto 1px 1fr 40px;
+  grid-template-columns: 40px 1px 50px 1fr 15px;
   grid-template-areas: 
     "main main   main top top"
     "left corner rulerX rulerX side"
@@ -311,6 +311,7 @@ hr {
   flex-wrap: wrap;
   align-items: flex-start;
   background-color: var(--main-bg-color);
+  padding-left: 15px;
 }
 
 #tools_top>* {
