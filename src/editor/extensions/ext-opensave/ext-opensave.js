@@ -17,6 +17,7 @@
    */
 import { fileOpen, fileSave } from 'browser-fs-access'
 
+import { API_URL } from '../../../common/config'
 import buttonsNodes from './bottomButtons.html'
 import opendialog from './opendialog.html'
 
@@ -26,7 +27,7 @@ openDialopTemplate.innerHTML = opendialog
 
 const name = 'opensave'
 let handle = null
-const API_BASE_URL = 'https://svgedit72.herokuapp.com'
+const API_BASE_URL = API_URL;
 
 const loadExtensionTranslation = async function (svgEditor) {
   let translationModule
