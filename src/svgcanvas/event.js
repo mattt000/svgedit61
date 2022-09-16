@@ -134,6 +134,13 @@ const mouseMoveEvent = (evt) => {
     shape.setAttribute('stroke-width', prevStrokeWidth);
   }
 
+  const lineOpacity = localStorage.getItem('lineOpacity')
+  if (lineOpacity) {
+    shape.setAttribute('opacity', lineOpacity);
+    svgCanvas.getStyle().opacity =lineOpacity;
+  }
+
+
   let realX = mouseX / zoom
   let x = realX
   let realY = mouseY / zoom
@@ -862,6 +869,7 @@ const mouseUpEvent = (evt) => {
     let cAni
     const curShape = svgCanvas.getStyle()
     const opacAni = svgCanvas.getOpacAni()
+    console.log(curShape, 'cur');
     if (opacAni.beginElement && Number.parseFloat(element.getAttribute('opacity')) !== curShape.opacity) {
       cAni = opacAni.cloneNode(true)
       cAni.setAttribute('to', curShape.opacity)
@@ -1146,7 +1154,7 @@ const mouseDownEvent = (evt) => {
           points: svgCanvas.getDAttr(),
           id: svgCanvas.getNextId(),
           fill: 'none',
-          opacity: curShape.opacity / 2,
+          opacity: curShape.opacity,
           'stroke-linecap': 'round',
           style: 'pointer-events:none'
         }
@@ -1166,7 +1174,7 @@ const mouseDownEvent = (evt) => {
           width: 0,
           height: 0,
           id: svgCanvas.getNextId(),
-          opacity: curShape.opacity / 2,
+          opacity: curShape.opacity,
           style: 'pointer-events:inherit'
         }
       })
@@ -1190,7 +1198,7 @@ const mouseDownEvent = (evt) => {
           width: 0,
           height: 0,
           id: svgCanvas.getNextId(),
-          opacity: curShape.opacity / 2
+          opacity: curShape.opacity
         }
       })
       break
@@ -1214,7 +1222,7 @@ const mouseDownEvent = (evt) => {
           'stroke-linecap': curShape.stroke_linecap,
           'stroke-opacity': curShape.stroke_opacity,
           fill: 'none',
-          opacity: curShape.opacity / 2,
+          opacity: curShape.opacity,
           style: 'pointer-events:none'
         }
       })
@@ -1229,7 +1237,7 @@ const mouseDownEvent = (evt) => {
           cy: y,
           r: 0,
           id: svgCanvas.getNextId(),
-          opacity: curShape.opacity / 2
+          opacity: curShape.opacity
         }
       })
       break
@@ -1244,7 +1252,7 @@ const mouseDownEvent = (evt) => {
           rx: 0,
           ry: 0,
           id: svgCanvas.getNextId(),
-          opacity: curShape.opacity / 2
+          opacity: curShape.opacity
         }
       })
       break

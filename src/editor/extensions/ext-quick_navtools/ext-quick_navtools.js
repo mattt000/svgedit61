@@ -31,9 +31,12 @@ export default {
     const changeZoom = () => {
       svgEditor.zoomChanged(window, 'canvas')
     }
+    
+    const opacity = localStorage.getItem('lineOpacity');
+    const fhpathWidth = localStorage.getItem('fhpathWidth');
 
     return {
-      callback () {
+      callback () { 
         // Add the button and its handler(s)
         const buttonsTemplate = document.createElement('template')
         buttonsTemplate.innerHTML = buttonsNodes;
@@ -42,26 +45,43 @@ export default {
 
         $click($id('navToolZoomToFit'), changeZoom)
 
-        $click($id('navTool15Pen'), () => {
+        $click($id('navTool15Pen'), (e) => {
           localStorage.setItem('fhpathWidth', '1.5mm');
           $id('stroke_width').value = '1.5mm';
+          e.target.classList.add('active-btn')
+          $id("navTool2Pen").classList.remove('active-btn')
         })
 
-        $click($id('navTool2Pen'), () => {
+        $click($id('navTool2Pen'), (e) => {
           localStorage.setItem('fhpathWidth', '2mm');
           $id('stroke_width').value = '2mm';
+          e.target.classList.add('active-btn')
+          $id("navTool15Pen").classList.remove('active-btn')
         })
         
-        $click($id('navTool100Opacity'), () => {
-          // Raihan please set the opacity of the object to 100% (1.0)
-          $id('opacity').value = '1';
+        $click($id('navTool100Opacity'), (e) => {
+          localStorage.setItem('lineOpacity', 1);
+          e.target.classList.add('active-btn')
+          $id("navTool50Opacity").classList.remove('active-btn')
         })
         
-        $click($id('navTool50Opacity'), () => {
-          // Raihan please set the opacity of the object to 50% (0.5)
-          $id('opacity').value = '0.5';
+        $click($id('navTool50Opacity'), (e) => {
+          localStorage.setItem('lineOpacity', 0.5);
+          e.target.classList.add('active-btn')
+          $id("navTool100Opacity").classList.remove('active-btn')
+        })
 
-        })
+        if (opacity && opacity === 1) {
+          $id("navTool100Opacity").classList.add('active-btn')
+        } else {
+          $id("navTool50Opacity").classList.add('active-btn')
+        }
+
+        if (fhpathWidth && fhpathWidth === '2mm') {
+          $id("navTool2Pen").classList.add('active-btn')
+        } else {
+          $id("navTool15Pen").classList.add('active-btn')
+        }
       },
     }
   }

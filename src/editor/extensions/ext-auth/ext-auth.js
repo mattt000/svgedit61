@@ -27,7 +27,6 @@ let isloggedIn = user && user.access_token ? true : false;
 export default {
   name,
   async init () {
-    console.log('ext auth active');
     const svgEditor = this
     const { svgCanvas } = svgEditor
     const { $id, $click } = svgCanvas
