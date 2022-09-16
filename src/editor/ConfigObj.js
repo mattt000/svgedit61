@@ -182,6 +182,7 @@ export default class ConfigObj {
       // 'ext-arrows',
       // 'ext-markers',
       // 'ext-overview_window', disabled until we fix performance issue
+      'ext-auth',
       'ext-panning',
       'ext-shapes',
       // 'ext-polystar',

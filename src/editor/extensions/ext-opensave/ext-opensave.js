@@ -15,11 +15,17 @@
    * @listens module:svgcanvas.SvgCanvas#event:saved
    * @returns {void}
    */
-import { fileOpen, fileSave } from 'browser-fs-access'
+import { fileOpen, fileSave } from 'browser-fs-access';
 
-import { API_URL } from '../../../common/config'
-import buttonsNodes from './bottomButtons.html'
-import opendialog from './opendialog.html'
+import { API_URL } from '../../../common/config';
+import buttonsNodes from './bottomButtons.html';
+import opendialog from './opendialog.html';
+
+// const getUser = localStorage.getItem('user');
+// const user = JSON.parse(getUser);
+// let isloggedIn = user && user?.access_token ? true : false;
+
+import { checkLogin } from '../ext-auth/utill';
 
 
 const openDialopTemplate = document.createElement('div')
@@ -27,7 +33,6 @@ openDialopTemplate.innerHTML = opendialog
 
 const name = 'opensave'
 let handle = null
-const API_BASE_URL = API_URL;
 
 const loadExtensionTranslation = async function (svgEditor) {
   let translationModule
@@ -191,12 +196,20 @@ export default {
      */
     const fetchImages = async (url) => {
       let images = []
-      await fetch(url)
-        .then((response) => response.json())
-        .then((data) => images = data)
-        .catch( (err) => new Error(err));
+      const {access_token, isloggedIn} = checkLogin();
 
-        return images
+      if (isloggedIn) {
+        await fetch(url, {
+          headers: {
+            Authorization: `Bearer ${access_token}`
+          }
+        })
+          .then((response) => response.json())
+          .then((data) => images = data)
+          .catch( (err) => new Error(err));
+      }
+
+      return images
     }
 
     // open dialog to upload svg image
@@ -206,9 +219,11 @@ export default {
       const closeButton = openDialopTemplate.querySelector('#closeOpenPopUp');
 
       document.querySelector('body').appendChild(openDialopTemplate);
+      
+      const {isloggedIn} = checkLogin();
 
       const isRemove = removeChilds(imageContainer);        
-      if (isRemove) {
+      if (isRemove && isloggedIn) {
         pushImagesToDomDialog(imageContainer)
       }
 
@@ -233,7 +248,7 @@ export default {
 
         if (e.target.classList.contains('opensaveDeleteBtn')) {
           const id = e.target.getAttribute('data-id')
-          const apiUrl = `${API_BASE_URL}/api/upload-svg?id=${id}`
+          const apiUrl = `${API_URL}/api/svg/delete/${id}`
           await deleteImageFromServer(apiUrl);
           e.target.parentNode.remove();
         }
@@ -246,11 +261,19 @@ export default {
      * @returns {void}
      */
     const deleteImageFromServer = async (url) => {
-      await fetch(url, {
-        method: 'delete'
-      })
-        .then((response) => response.json())
-        .catch( (err) => new Error(err));
+      const {access_token, isloggedIn} = checkLogin();
+
+      if (isloggedIn) {
+        await fetch(url, {
+          method: 'delete',
+          headers: {
+            Authorization: `Bearer ${access_token}`
+          }
+        })
+          .then((response) => response.json())
+          .catch( (err) => new Error(err));
+      }
+
     }
 
     /**
@@ -260,7 +283,7 @@ export default {
      */
 
     const pushImagesToDomDialog = async (imageContainer) => {
-      const images = await fetchImages(`${API_BASE_URL}/api/upload-svg/all`);
+      const images = await fetchImages(`${API_URL}/api/svg/files`);
       const messageNode = imageContainer.querySelector('.message')
 
       if (images && images.length > 0) {
@@ -273,11 +296,7 @@ export default {
           const imageItemEl = document.createElement('div')
           const deleteButtonEl = document.createElement('button')
 
-          deleteIconEl.src = './images/trash_icon.svg';
-          deleteButtonEl.append(deleteIconEl)
-          deleteButtonEl.setAttribute('data-id', image._id)
-
-          imageEl.src =`${API_BASE_URL}/uploads/${image.url}`;
+          imageEl.src =`${API_URL}/uploads/${image.url}`;
           imageNameEl.innerText = image.name;
 
           imageEl.classList.add('imageContainerChildImage')
@@ -287,7 +306,16 @@ export default {
           imageItemEl.appendChild(imageEl)
           imageItemEl.appendChild(imageNameEl)
           imageContainer.appendChild(imageItemEl)
-          imageItemEl.append(deleteButtonEl)
+
+          const {user, isloggedIn} = checkLogin();
+
+          if (isloggedIn && user.isAdmin) {
+            deleteIconEl.src = './images/trash_icon.svg';
+            deleteButtonEl.append(deleteIconEl)
+            deleteButtonEl.setAttribute('data-id', image._id)
+            
+            imageItemEl.append(deleteButtonEl)
+          }
         })
 
       } else {        
@@ -377,7 +405,7 @@ export default {
             kind: handle.kind
           })
 
-          saveToServer(`${API_BASE_URL}/api/upload-svg/create`, blob, svgEditor.title)
+          saveToServer(`${API_URL}/api/svg/upload`, blob, svgEditor.title)
         } catch (err) {
           if (err.name !== 'AbortError') {
             return console.error(err)
@@ -398,12 +426,19 @@ export default {
       const formData = new FormData();
       formData.append('image', blob, `${fileName}.svg`)
 
-      await fetch(apiURL, {
-        method: "POST",
-        body: formData,
-      }).catch (err => {
-        return new Error(err);
-      })
+      const {access_token, isloggedIn} = checkLogin();
+
+      if (isloggedIn) {
+        await fetch(apiURL, {
+          method: "POST",
+          body: formData,
+          headers: {
+            Authorization: `Bearer ${access_token}`
+          }
+        }).catch (err => {
+          return new Error(err);
+        })
+      }
     }
 
 
