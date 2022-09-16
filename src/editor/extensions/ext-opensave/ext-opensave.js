@@ -21,10 +21,6 @@ import { API_URL } from '../../../common/config';
 import buttonsNodes from './bottomButtons.html';
 import opendialog from './opendialog.html';
 
-// const getUser = localStorage.getItem('user');
-// const user = JSON.parse(getUser);
-// let isloggedIn = user && user?.access_token ? true : false;
-
 import { checkLogin } from '../ext-auth/utill';
 
 
@@ -237,9 +233,7 @@ export default {
         openDialopTemplate.remove()
       })
 
-
-      // load svg from suggestion
-      imageContainer.addEventListener('click', async (e) => {
+      const handleImageContainerClick = async (e) => {
         if (e.target.classList.contains('imageContainerChildImage')) {
           let currentSrc = e.target.currentSrc;
           svgEditor.loadFromURL(currentSrc);
@@ -252,7 +246,19 @@ export default {
           await deleteImageFromServer(apiUrl);
           e.target.parentNode.remove();
         }
-      });     
+
+        if (e.target.classList.contains('opensaveStatusBtn')) {
+          const id = e.target.getAttribute('data-id')
+          const value = e.target.getAttribute('data-value')
+          const url = `${API_URL}/api/svg/update/status/${id}`
+
+          e.target.setAttribute('data-value', value === 'active' ? 'inactive' : 'active')   
+          await changeStatus(url, value);
+        }
+      }
+
+      // load svg from suggestion
+      imageContainer.addEventListener('click', handleImageContainerClick);     
     }
 
     /**
@@ -273,7 +279,28 @@ export default {
           .then((response) => response.json())
           .catch( (err) => new Error(err));
       }
-
+    }
+    /**
+     * change status from server
+     * @param {string} url
+     * @returns {void}
+     */
+    const changeStatus = async (url, value) => {
+      const {access_token, isloggedIn} = checkLogin();
+      
+      if (isloggedIn) {
+        await fetch(url, {
+          method: 'PUT',
+          headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${access_token}`
+          },
+          body: JSON.stringify({status: value === 'acitve' ? false : true})
+        })
+          .then((response) => response.json())
+          .catch( (err) => new Error(err));
+      }
     }
 
     /**
@@ -292,9 +319,11 @@ export default {
         images.forEach((image)=> {
           const imageEl = document.createElement('img')
           const deleteIconEl = document.createElement('img')
+          const statusIconEl = document.createElement('img')
           const imageNameEl = document.createElement('p')
           const imageItemEl = document.createElement('div')
           const deleteButtonEl = document.createElement('button')
+          const statusButtonEl = document.createElement('button')
 
           imageEl.src =`${API_URL}/uploads/${image.url}`;
           imageNameEl.innerText = image.name;
@@ -302,6 +331,7 @@ export default {
           imageEl.classList.add('imageContainerChildImage')
           imageItemEl.classList.add('imageContainerChild')
           deleteButtonEl.classList.add('opensaveDeleteBtn')
+          statusButtonEl.classList.add('opensaveStatusBtn')
           
           imageItemEl.appendChild(imageEl)
           imageItemEl.appendChild(imageNameEl)
@@ -313,8 +343,14 @@ export default {
             deleteIconEl.src = './images/trash_icon.svg';
             deleteButtonEl.append(deleteIconEl)
             deleteButtonEl.setAttribute('data-id', image._id)
+
+            statusIconEl.src = './images/check-round-icon.svg';
+            statusButtonEl.append(statusIconEl)
+            statusButtonEl.setAttribute('data-id', image._id)
+            statusButtonEl.setAttribute('data-value', image.status ? 'acitve' : 'inactive')
             
             imageItemEl.append(deleteButtonEl)
+            imageItemEl.append(statusButtonEl)
           }
         })
 

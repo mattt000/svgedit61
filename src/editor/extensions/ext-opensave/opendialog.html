@@ -98,7 +98,8 @@
     text-align: center;
   }
 
-  .opensaveDeleteBtn {
+  .opensaveDeleteBtn,
+  .opensaveStatusBtn {
     position: absolute;
     top: 5px;
     right: 5px;
@@ -112,10 +113,24 @@
     padding: 5px;
     display: none;
   }
-  .opensaveDeleteBtn img {
+  .opensaveDeleteBtn img,
+  .opensaveStatusBtn img {
     pointer-events: none;
   }
-  
+
+  .opensaveStatusBtn[data-value="inactive"] {
+    filter: grayscale(1);
+  }
+
+  .opensaveStatusBtn {
+    right: auto;
+    left: 5px;
+    display: block;
+    padding: 0;
+    width: 25px;
+    height: 25px;
+  }
+
   .imageContainerChild:hover .opensaveDeleteBtn {
     display: block;
   }
