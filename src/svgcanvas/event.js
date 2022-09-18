@@ -869,7 +869,6 @@ const mouseUpEvent = (evt) => {
     let cAni
     const curShape = svgCanvas.getStyle()
     const opacAni = svgCanvas.getOpacAni()
-    console.log(curShape, 'cur');
     if (opacAni.beginElement && Number.parseFloat(element.getAttribute('opacity')) !== curShape.opacity) {
       cAni = opacAni.cloneNode(true)
       cAni.setAttribute('to', curShape.opacity)

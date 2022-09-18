@@ -60,12 +60,14 @@ export default {
         })
         
         $click($id('navTool100Opacity'), (e) => {
+          svgCanvas.changeSelectedAttribute('opacity', 1)
           localStorage.setItem('lineOpacity', 1);
           e.target.classList.add('active-btn')
           $id("navTool50Opacity").classList.remove('active-btn')
         })
         
         $click($id('navTool50Opacity'), (e) => {
+          svgCanvas.changeSelectedAttribute('opacity', 0.5)
           localStorage.setItem('lineOpacity', 0.5);
           e.target.classList.add('active-btn')
           $id("navTool100Opacity").classList.remove('active-btn')
