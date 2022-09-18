@@ -44,9 +44,14 @@ export default {
           })
             .then((response) => response.json())
             .then(res => {
-                loginForm.remove()
+              if (res.access_token) {
                 localStorage.setItem('user', JSON.stringify(res))
+                $id('loginMessage').innerText = "";
+                loginForm.remove()
                 isloggedIn = true
+              } else {
+                $id('loginMessage').innerText = res.message;
+              }
             })
             .catch( (err) => new Error(err));
     }
