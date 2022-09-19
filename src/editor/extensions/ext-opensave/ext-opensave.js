@@ -236,13 +236,16 @@ export default {
       const handleImageContainerClick = async (e) => {
         if (e.target.classList.contains('imageContainerChildImage')) {
           let currentSrc = e.target.currentSrc;
+          const fileName = e.target.querySelector('p').innerText;
+
           svgEditor.loadFromURL(currentSrc);
+          svgEditor.topPanel.updateTitle(fileName)
           openDialopTemplate.remove()
         }
 
         if (e.target.classList.contains('opensaveDeleteBtn')) {
           const id = e.target.getAttribute('data-id')
-          const apiUrl = `${API_URL}/api/svg/delete/${id}`
+          const apiUrl = `${API_URL}/api/templates/${id}`
           await deleteImageFromServer(apiUrl);
           e.target.parentNode.remove();
         }
@@ -250,7 +253,7 @@ export default {
         if (e.target.classList.contains('opensaveStatusBtn')) {
           const id = e.target.getAttribute('data-id')
           const value = e.target.getAttribute('data-value')
-          const url = `${API_URL}/api/svg/update/status/${id}`
+          const url = `${API_URL}/api/templates/${id}`
 
           e.target.setAttribute('data-value', value === 'active' ? 'inactive' : 'active')   
           await changeStatus(url, value);
@@ -310,7 +313,7 @@ export default {
      */
 
     const pushImagesToDomDialog = async (imageContainer) => {
-      const images = await fetchImages(`${API_URL}/api/svg/files`);
+      const images = await fetchImages(`${API_URL}/api/templates`);
       const messageNode = imageContainer.querySelector('.message')
 
       if (images && images.length > 0) {
@@ -325,7 +328,7 @@ export default {
           const deleteButtonEl = document.createElement('button')
           const statusButtonEl = document.createElement('button')
 
-          imageEl.src =`${API_URL}/uploads/${image.url}`;
+          imageEl.src =image.url;
           imageNameEl.innerText = image.name;
 
           imageEl.classList.add('imageContainerChildImage')
@@ -441,7 +444,7 @@ export default {
             kind: handle.kind
           })
 
-          saveToServer(`${API_URL}/api/svg/upload`, blob, svgEditor.title)
+          saveToServer(`${API_URL}/api/templates`, blob, svgEditor.title)
         } catch (err) {
           if (err.name !== 'AbortError') {
             return console.error(err)
