@@ -215,7 +215,7 @@ export default {
           const fileName = e.target.getAttribute('data-name');
 
           svgEditor.loadFromURL(currentSrc);
-          svgEditor.topPanel.updateTitle(fileName)
+          svgEditor.topPanel.updateTitle(fileName+'-01.svg')
           openDialopTemplate.remove()
         }
 
@@ -396,8 +396,19 @@ export default {
               extensions: ['.svg']
             }, handle, throwIfExistingHandleNotGood)
           } else {
+            let num;
+            const fileTitleArray = svgEditor.title.split('-');
+            num = parseInt(fileTitleArray[fileTitleArray.length - 1]) + 1;
+
+            if (num < 10) {
+              num = "0" + num;
+            }
+
+            fileTitleArray[fileTitleArray.length - 1] = num;
+            const fileTitle = fileTitleArray.join('-');
+
             handle = await fileSave(blob, {
-              fileName: svgEditor.title,
+              fileName: fileTitle,
               extensions: ['.svg']
             })
           }
