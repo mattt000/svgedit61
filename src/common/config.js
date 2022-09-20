@@ -1,1 +1,1 @@
-export const API_URL = 'http://teleagam.outeraspect.com';
+export const API_URL = 'https://teleagam.outeraspect.com';
