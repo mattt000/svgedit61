@@ -16,11 +16,10 @@
    * @returns {void}
    */
 import { fileOpen, fileSave } from 'browser-fs-access';
-
-import { API_URL } from '../../../common/config';
 import buttonsNodes from './bottomButtons.html';
 import opendialog from './opendialog.html';
 
+import http from '../../../common/http';
 import { checkLogin } from '../ext-auth/utill';
 
 
@@ -185,29 +184,6 @@ export default {
       }
     }
 
-    /**
-     * Fetch svg from server
-     * @param {string} url
-     * @returns {Array}
-     */
-    const fetchImages = async (url) => {
-      let images = []
-      const {access_token, isloggedIn} = checkLogin();
-
-      if (isloggedIn) {
-        await fetch(url, {
-          headers: {
-            Authorization: `Bearer ${access_token}`
-          }
-        })
-          .then((response) => response.json())
-          .then((data) => images = data)
-          .catch( (err) => new Error(err));
-      }
-
-      return images
-    }
-
     // open dialog to upload svg image
     const clickOpenDialog = () => {
       const imageContainer = openDialopTemplate.querySelector('#imageContainer')
@@ -236,7 +212,7 @@ export default {
       const handleImageContainerClick = async (e) => {
         if (e.target.classList.contains('imageContainerChildImage')) {
           let currentSrc = e.target.currentSrc;
-          const fileName = e.target.querySelector('p').innerText;
+          const fileName = e.target.getAttribute('data-name');
 
           svgEditor.loadFromURL(currentSrc);
           svgEditor.topPanel.updateTitle(fileName)
@@ -245,65 +221,42 @@ export default {
 
         if (e.target.classList.contains('opensaveDeleteBtn')) {
           const id = e.target.getAttribute('data-id')
-          const apiUrl = `${API_URL}/api/templates/${id}`
-          await deleteImageFromServer(apiUrl);
+
+          try {
+            await http.delete(`/api/templates/${id}`)
+          } catch (err) {
+            console.log(err);
+          }
+
           e.target.parentNode.remove();
         }
 
         if (e.target.classList.contains('opensaveStatusBtn')) {
           const id = e.target.getAttribute('data-id')
-          const value = e.target.getAttribute('data-value')
-          const url = `${API_URL}/api/templates/${id}`
+          let value = true;
 
-          e.target.setAttribute('data-value', value === 'active' ? 'inactive' : 'active')   
-          await changeStatus(url, value);
+          if (e.target.classList.contains('active')) {
+            e.target.classList.remove('active');
+            value = false;
+          }
+
+         const {isloggedIn} = checkLogin();
+      
+          if (isloggedIn) {
+            try {
+              const res = await http.put(`/api/templates/${id}`, {status: value})
+              if (res.data.status) {
+                e.target.classList.add('active');
+              }              
+            } catch (err) {
+              console.log(err);
+            }
+          }
         }
       }
 
       // load svg from suggestion
       imageContainer.addEventListener('click', handleImageContainerClick);     
-    }
-
-    /**
-     * remove image from server
-     * @param {string} url
-     * @returns {void}
-     */
-    const deleteImageFromServer = async (url) => {
-      const {access_token, isloggedIn} = checkLogin();
-
-      if (isloggedIn) {
-        await fetch(url, {
-          method: 'delete',
-          headers: {
-            Authorization: `Bearer ${access_token}`
-          }
-        })
-          .then((response) => response.json())
-          .catch( (err) => new Error(err));
-      }
-    }
-    /**
-     * change status from server
-     * @param {string} url
-     * @returns {void}
-     */
-    const changeStatus = async (url, value) => {
-      const {access_token, isloggedIn} = checkLogin();
-      
-      if (isloggedIn) {
-        await fetch(url, {
-          method: 'PUT',
-          headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          "Authorization": `Bearer ${access_token}`
-          },
-          body: JSON.stringify({status: value === 'acitve' ? false : true})
-        })
-          .then((response) => response.json())
-          .catch( (err) => new Error(err));
-      }
     }
 
     /**
@@ -313,53 +266,63 @@ export default {
      */
 
     const pushImagesToDomDialog = async (imageContainer) => {
-      const images = await fetchImages(`${API_URL}/api/templates`);
-      const messageNode = imageContainer.querySelector('.message')
-
-      if (images && images.length > 0) {
-        messageNode.remove();
-
-        images.forEach((image)=> {
-          const imageEl = document.createElement('img')
-          const deleteIconEl = document.createElement('img')
-          const statusIconEl = document.createElement('img')
-          const imageNameEl = document.createElement('p')
-          const imageItemEl = document.createElement('div')
-          const deleteButtonEl = document.createElement('button')
-          const statusButtonEl = document.createElement('button')
-
-          imageEl.src =image.url;
-          imageNameEl.innerText = image.name;
-
-          imageEl.classList.add('imageContainerChildImage')
-          imageItemEl.classList.add('imageContainerChild')
-          deleteButtonEl.classList.add('opensaveDeleteBtn')
-          statusButtonEl.classList.add('opensaveStatusBtn')
-          
-          imageItemEl.appendChild(imageEl)
-          imageItemEl.appendChild(imageNameEl)
-          imageContainer.appendChild(imageItemEl)
-
-          const {user, isloggedIn} = checkLogin();
-
-          if (isloggedIn && user.isAdmin) {
-            deleteIconEl.src = './images/trash_icon.svg';
-            deleteButtonEl.append(deleteIconEl)
-            deleteButtonEl.setAttribute('data-id', image._id)
-
-            statusIconEl.src = './images/check-round-icon.svg';
-            statusButtonEl.append(statusIconEl)
-            statusButtonEl.setAttribute('data-id', image._id)
-            statusButtonEl.setAttribute('data-value', image.status ? 'acitve' : 'inactive')
+      try {
+        const images = await http.get('/api/templates');
+        
+        const messageNode = imageContainer.querySelector('.message')
+        
+        if (images && images.length > 0) {
+          messageNode.remove();
+  
+          images.forEach((image)=> {
+            const imageEl = document.createElement('img')
+            const deleteIconEl = document.createElement('img')
+            const statusIconEl = document.createElement('img')
+            const imageNameEl = document.createElement('p')
+            const imageItemEl = document.createElement('div')
+            const deleteButtonEl = document.createElement('button')
+            const statusButtonEl = document.createElement('button')
+  
+            imageEl.src =image.url;
+            imageEl.setAttribute('data-name', image.name)
+            imageNameEl.innerText = image.name;
+  
+            imageEl.classList.add('imageContainerChildImage')
+            imageItemEl.classList.add('imageContainerChild')
+            deleteButtonEl.classList.add('opensaveDeleteBtn')
+            statusButtonEl.classList.add('opensaveStatusBtn')
             
-            imageItemEl.append(deleteButtonEl)
-            imageItemEl.append(statusButtonEl)
-          }
-        })
-
-      } else {        
-        messageNode.innerHTML = "Not found!"
+            imageItemEl.appendChild(imageEl)
+            imageItemEl.appendChild(imageNameEl)
+            imageContainer.appendChild(imageItemEl)
+  
+            const {user, isloggedIn} = checkLogin();
+  
+            if (isloggedIn && user.isAdmin) {
+              deleteIconEl.src = './images/trash_icon.svg';
+              deleteButtonEl.append(deleteIconEl)
+              deleteButtonEl.setAttribute('data-id', image._id)
+  
+              statusIconEl.src = './images/check-round-icon.svg';
+              statusButtonEl.append(statusIconEl)
+              statusButtonEl.setAttribute('data-id', image._id)
+  
+              if (image.status) {
+                statusButtonEl.classList.add('active')
+              }
+              
+              imageItemEl.append(deleteButtonEl)
+              imageItemEl.append(statusButtonEl)
+            }
+          })
+  
+        } else {        
+          messageNode.innerHTML = "Not found!"
+        }
+      } catch (err) {
+        console.log(err);
       }
+      
     }
 
     /**
@@ -444,7 +407,15 @@ export default {
             kind: handle.kind
           })
 
-          saveToServer(`${API_URL}/api/templates`, blob, svgEditor.title)
+          const formData = new FormData();
+          formData.append('image', blob, `${svgEditor.title}.svg`)
+
+          try {
+            await http.post('/api/templates', formData)
+          } catch (err) {
+            console.log(err);
+          }
+          
         } catch (err) {
           if (err.name !== 'AbortError') {
             return console.error(err)
@@ -452,34 +423,6 @@ export default {
         }
       }
     }
-
-    /**
-     * Save svg image to server
-     * @param {string} apiURL 
-     * @param {blob} blob
-     * @param {string} fileName
-     * @return {void}  
-     */
-
-    const saveToServer = async (apiURL, blob, fileName) => {
-      const formData = new FormData();
-      formData.append('image', blob, `${fileName}.svg`)
-
-      const {access_token, isloggedIn} = checkLogin();
-
-      if (isloggedIn) {
-        await fetch(apiURL, {
-          method: "POST",
-          body: formData,
-          headers: {
-            Authorization: `Bearer ${access_token}`
-          }
-        }).catch (err => {
-          return new Error(err);
-        })
-      }
-    }
-
 
     return {
       name: svgEditor.i18next.t(`${name}:name`),

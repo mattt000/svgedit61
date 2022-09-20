@@ -60,17 +60,32 @@
 
   .img-container .imageContainerChild {
     width: calc(90% / 4);
-    aspect-ratio: 16/10;
-    cursor: pointer;
     border: 1px solid #808080;
     text-align: center;
     position: relative;
+    height: 120px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    justify-content: space-between;
   }
 
   .imageContainerChild img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    cursor: pointer;
+  }
+
+  .imageContainerChildImage {
+    aspect-ratio: 16/9;
+    height: auto;
+    border-bottom: 1px solid #808080;
+  }
+
+  .imageContainerChildImage:hover {
+    opacity: 0.6;
   }
 
   .actions {
@@ -91,7 +106,10 @@
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding: 0 5px;
+    padding: 6px 5px 10px 5px;
+    box-sizing: border-box;
+    line-height: 1;
+    margin: 0;
   }
 
   .img-container p.message {
@@ -103,23 +121,31 @@
     position: absolute;
     top: 5px;
     right: 5px;
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     outline: none;
     border: none;
-    background: white;
+    background: transparent;
+    transition: 0.2s;
     border-radius: 50%;
     cursor: pointer;
     padding: 5px;
     display: none;
+    border: 1px solid transparent;
   }
+
+  .opensaveDeleteBtn {
+    background-color: #f84023;
+  }
+
   .opensaveDeleteBtn img,
   .opensaveStatusBtn img {
     pointer-events: none;
   }
 
-  .opensaveStatusBtn[data-value="inactive"] {
-    filter: grayscale(1);
+  .opensaveDeleteBtn:hover,
+  .opensaveStatusBtn:hover {
+    border-color: #ffffff;
   }
 
   .opensaveStatusBtn {
@@ -129,6 +155,11 @@
     padding: 0;
     width: 25px;
     height: 25px;
+    filter: grayscale(1);
+  }
+
+  button.opensaveStatusBtn.active {
+    filter: initial;
   }
 
   .imageContainerChild:hover .opensaveDeleteBtn {
