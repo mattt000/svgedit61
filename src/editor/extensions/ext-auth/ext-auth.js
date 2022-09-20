@@ -13,16 +13,13 @@
 */
 
 const name = 'auth'
-import { API_URL } from '../../../common/config';
+import http from '../../../common/http';
 import htmlTemplate from './template.html';
 import { checkLogin } from './utill';
 
 // Add login form
 const loginForm = document.createElement('div')
 loginForm.innerHTML = htmlTemplate;
-
-let user = null;
-let isloggedIn = user && user.access_token ? true : false;
 
 export default {
   name,
@@ -33,29 +30,18 @@ export default {
 
     const login = async (username, password) => {
         const credential = {username, password}
-        
-        await fetch(`${API_URL}/api/auth/login`, {
-            method: 'POST',
-            headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(credential)
-          })
-            .then((response) => response.json())
-            .then(res => {
-              if (res.access_token) {
-                localStorage.setItem('user', JSON.stringify(res))
-                $id('loginMessage').innerText = "";
-                loginForm.remove()
-                isloggedIn = true
-              } else {
-                $id('loginMessage').innerText = res.message;
-              }
-            })
-            .catch( (err) => new Error(err));
-    }
 
+        try {
+          const res = await http.post('/api/auth/login', credential);
+
+          localStorage.setItem('user', JSON.stringify(res))
+          $id('loginMessage').innerText = "";
+          loginForm.remove()
+          
+        } catch (err) {
+          $id('loginMessage').innerText = err.message;
+        }
+    }
 
     return {
       callback () {

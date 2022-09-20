@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:5000';
+const API_BASE_URL = 'https://teleagam.outeraspect.com';
 
 const getUser = localStorage.getItem('user');
 const user = JSON.parse(getUser);
