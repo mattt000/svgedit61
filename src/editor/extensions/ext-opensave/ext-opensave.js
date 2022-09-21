@@ -393,10 +393,11 @@ export default {
           let numNext;
           let fileTitle = svgEditor.title;
           let fileTitleNext = svgEditor.title;
+
+          const fileTitleArray = svgEditor.title.split('-');
+          num = parseInt(fileTitleArray[fileTitleArray.length - 1]);
           
-          if (fileTitle !== 'untitled.svg') {
-            const fileTitleArray = svgEditor.title.split('-');
-            num = parseInt(fileTitleArray[fileTitleArray.length - 1]);
+          if (num) {
             numNext = parseInt(fileTitleArray[fileTitleArray.length - 1])+1;
   
             if (num < 10) {
@@ -411,8 +412,11 @@ export default {
             fileTitle = fileTitleArray.join('-');
 
             fileTitleArray[fileTitleArray.length - 1] = numNext;
-            fileTitleNext = fileTitleArray.join('-');
+            fileTitleNext = fileTitleArray.join('-')+'.svg';
           }
+
+
+
 
           if (type === 'save' && handle !== null) {
             const throwIfExistingHandleNotGood = false
@@ -428,7 +432,7 @@ export default {
               extensions: ['.svg']
             })
           }
-          svgEditor.topPanel.updateTitle(handle.name)
+          svgEditor.topPanel.updateTitle(`${fileTitleNext}`)
           svgCanvas.runExtensions('onSavedDocument', {
             name: handle.name,
             kind: handle.kind
