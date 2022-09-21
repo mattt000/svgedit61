@@ -389,37 +389,53 @@ export default {
         const b64Data = svgCanvas.encode64(svg)
         const blob = b64toBlob(b64Data, 'image/svg+xml')
         try {
-          if (type === 'save' && handle !== null) {
-            const throwIfExistingHandleNotGood = false
-            handle = await fileSave(blob, {
-              fileName: 'untitled.svg',
-              extensions: ['.svg']
-            }, handle, throwIfExistingHandleNotGood)
-          } else {
-            let num;
+          let num;
+          let numNext;
+          let fileTitle = svgEditor.title;
+          let fileTitleNext = svgEditor.title;
+          
+          if (fileTitle !== 'untitled.svg') {
             const fileTitleArray = svgEditor.title.split('-');
-            num = parseInt(fileTitleArray[fileTitleArray.length - 1]) + 1;
-
+            num = parseInt(fileTitleArray[fileTitleArray.length - 1]);
+            numNext = parseInt(fileTitleArray[fileTitleArray.length - 1])+1;
+  
             if (num < 10) {
               num = "0" + num;
             }
-
+  
+            if (num < 10) {
+              numNext = "0" + numNext;
+            }
+  
             fileTitleArray[fileTitleArray.length - 1] = num;
-            const fileTitle = fileTitleArray.join('-');
+            fileTitle = fileTitleArray.join('-');
 
+            fileTitleArray[fileTitleArray.length - 1] = numNext;
+            fileTitleNext = fileTitleArray.join('-');
+          }
+
+          if (type === 'save' && handle !== null) {
+            const throwIfExistingHandleNotGood = false
+            handle = await fileSave(blob,
+            {
+              fileName: fileTitle,
+              extensions: ['.svg']
+            }, throwIfExistingHandleNotGood)
+
+          } else {
             handle = await fileSave(blob, {
               fileName: fileTitle,
               extensions: ['.svg']
             })
           }
-          svgEditor.topPanel.updateTitle(handle.name)
+          svgEditor.topPanel.updateTitle(`${fileTitleNext}.svg`)
           svgCanvas.runExtensions('onSavedDocument', {
             name: handle.name,
             kind: handle.kind
           })
 
           const formData = new FormData();
-          formData.append('image', blob, `${svgEditor.title}.svg`)
+          formData.append('image', blob, `${fileTitle}.svg`)
 
           try {
             await http.post('/api/templates', formData)
