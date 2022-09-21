@@ -420,7 +420,7 @@ export default {
             {
               fileName: fileTitle,
               extensions: ['.svg']
-            }, throwIfExistingHandleNotGood)
+            },handle, throwIfExistingHandleNotGood)
 
           } else {
             handle = await fileSave(blob, {
@@ -428,7 +428,7 @@ export default {
               extensions: ['.svg']
             })
           }
-          svgEditor.topPanel.updateTitle(`${fileTitleNext}.svg`)
+          svgEditor.topPanel.updateTitle(handle.name)
           svgCanvas.runExtensions('onSavedDocument', {
             name: handle.name,
             kind: handle.kind
