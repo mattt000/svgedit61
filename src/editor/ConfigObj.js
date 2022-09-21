@@ -184,7 +184,7 @@ export default class ConfigObj {
       // 'ext-overview_window', disabled until we fix performance issue
       'ext-auth',
       'ext-panning',
-      'ext-shapes',
+      // 'ext-shapes',
       // 'ext-polystar',
       'ext-storage',
       'ext-server_opensave',
