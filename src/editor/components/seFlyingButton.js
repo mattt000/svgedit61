@@ -54,6 +54,8 @@ export class FlyingButton extends HTMLElement {
         }
         .overall.pressed .menu-button {
           background-color: var(--icon-bg-color-hover) !important;
+          border: 3px solid transparent;
+          border-color: #c79605;
         }
         .disabled {
           opacity: 0.3;

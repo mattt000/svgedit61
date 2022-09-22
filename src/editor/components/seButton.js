@@ -30,6 +30,8 @@ template.innerHTML = `
   }
   .pressed {
     background-color: var(--icon-bg-color-hover);
+    border: 3px solid transparent;
+    border-color: #c79605;
   }
   .disabled {
     opacity: 0.3;
