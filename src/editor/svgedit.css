@@ -195,12 +195,13 @@ hr {
 —————————————————————————————*/
 
 #main_button {
-  grid-area: main;
+  grid-area: top;
   color: #fff;
   border-radius: 3px;
   padding-block: 2px;
-  padding-left: 3px;
+  padding-right: 13em;
   height: 34px;
+  text-align: end;
 }
 
 #main_icon {
