@@ -256,7 +256,10 @@ class MainMenu {
         <se-menu-item id="tool_docprops" label="tools.docprops" shortcut="D" src="docprop.svg"></se-menu-item>
         <se-menu-item id="tool_editor_prefs" label="config.editor_prefs" src="editPref.svg"></se-menu-item>
         <se-menu-item id="tool_editor_homepage" label="tools.editor_homepage" src="logo.svg"></se-menu-item>
-    </se-menu>`
+    </se-menu>
+    <se-button id="main_logo" label="TeleAgam" src="teleagam.svg" alt="logo">
+    </se-button>`
+
     this.editor.$svgEditor.append(template.content.cloneNode(true))
 
     // register action to main menu entries
