@@ -1,1 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51.04 49.47"><defs><style>.cls-1,.cls-3{fill:none;}.cls-1,.cls-2{stroke:#fff;}.cls-1{stroke-linecap:round;stroke-miterlimit:10;stroke-width:4px;}.cls-2{fill:#fff;stroke-linejoin:round;}</style></defs><g id="Calque_2" data-name="Calque 2"><g id="Calque_1-2" data-name="Calque 1"><path class="cls-1" d="M30.81,10.68A16.72,16.72,0,1,1,11.49,36"/><polygon class="cls-2" points="22.43 7.64 30.2 17.38 34.77 5.93 22.43 7.64"/><rect class="cls-3" width="51.04" height="49.47"/></g></g></svg>
+<svg width="51.04" height="49.47" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <defs>
+  <style>.cls-1,.cls-3{fill:none;}.cls-1,.cls-2{stroke:#fff;}.cls-1{stroke-linecap:round;stroke-miterlimit:10;stroke-width:4px;}.cls-2{fill:#fff;stroke-linejoin:round;}</style>
+ </defs>
+ <g class="layer">
+  <title>Layer 1</title>
+  <g data-name="Calque 2" id="Calque_2">
+   <g data-name="Calque 1" id="Calque_1-2">
+    <rect class="cls-3" height="49.47" id="svg_3" transform="matrix(1, 0, 0, 1, 0, 0)" width="51.04"/>
+    <path class="cls-1" d="m30.47,5.31a16.72,16.72 0 1 1 -19.32,25.32" id="svg_1"/>
+    <polygon class="cls-2" id="svg_2" points="22.087143152952194,2.268571376800537 29.857143610715866,12.008570671081543 34.427143305540085,0.5585713386535645 22.087143152952194,2.268571376800537 "/>
+   </g>
+  </g>
+  <text fill="#ffffff" font-family="Sans-serif" font-size="18" font-weight="bold" id="svg_4" letter-spacing="0" stroke="#000000" stroke-linecap="null" stroke-linejoin="null" stroke-width="0.25" text-anchor="middle" transform="matrix(0.984995, 0, 0, 1, 0.478566, 0)" x="25.23" xml:space="preserve" y="48.99">UNDO</text>
+ </g>
+</svg>
