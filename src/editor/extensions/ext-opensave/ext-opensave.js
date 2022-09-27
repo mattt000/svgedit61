@@ -15,7 +15,7 @@
    * @listens module:svgcanvas.SvgCanvas#event:saved
    * @returns {void}
    */
-import { fileOpen, fileSave } from 'browser-fs-access';
+import { fileOpen } from 'browser-fs-access';
 import buttonsNodes from './bottomButtons.html';
 import opendialog from './opendialog.html';
 
@@ -437,11 +437,16 @@ export default {
           //   kind: handle.kind
           // })
 
+          const buttonContent = $id('opensaveBottomSaveText').innerHTML;
+
+          $id('opensaveBottomSaveText').innerText = 'Saving...';
+
           const formData = new FormData();
           formData.append('image', blob, `${fileTitle}.svg`)
 
           try {
             await http.post('/api/templates', formData)
+            $id('opensaveBottomSaveText').innerHTML = buttonContent;
           } catch (err) {
             console.log(err);
           }
