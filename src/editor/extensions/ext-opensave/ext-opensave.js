@@ -415,28 +415,27 @@ export default {
             fileTitleNext = fileTitleArray.join('-')+'.svg';
           }
 
+          // @todo: file save in local mechine
 
+          // if (type === 'save' && handle !== null) {
+          //   const throwIfExistingHandleNotGood = false
+          //   handle = await fileSave(blob,
+          //   {
+          //     fileName: fileTitle,
+          //     extensions: ['.svg']
+          //   },handle, throwIfExistingHandleNotGood)
 
-
-          if (type === 'save' && handle !== null) {
-            const throwIfExistingHandleNotGood = false
-            handle = await fileSave(blob,
-            {
-              fileName: fileTitle,
-              extensions: ['.svg']
-            },handle, throwIfExistingHandleNotGood)
-
-          } else {
-            handle = await fileSave(blob, {
-              fileName: fileTitle,
-              extensions: ['.svg']
-            })
-          }
-          svgEditor.topPanel.updateTitle(`${fileTitleNext}`)
-          svgCanvas.runExtensions('onSavedDocument', {
-            name: handle.name,
-            kind: handle.kind
-          })
+          // } else {
+          //   handle = await fileSave(blob, {
+          //     fileName: fileTitle,
+          //     extensions: ['.svg']
+          //   })
+          // }
+          // svgEditor.topPanel.updateTitle(`${fileTitleNext}`)
+          // svgCanvas.runExtensions('onSavedDocument', {
+          //   name: handle.name,
+          //   kind: handle.kind
+          // })
 
           const formData = new FormData();
           formData.append('image', blob, `${fileTitle}.svg`)
