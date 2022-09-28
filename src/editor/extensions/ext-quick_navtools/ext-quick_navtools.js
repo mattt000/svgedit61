@@ -43,6 +43,10 @@ export default {
 
         $id('tools_bottom').append(buttonsTemplate.content.cloneNode(true))
 
+        <!-- Raihan, please add the code to implement the zoom 100%(1.0) & 50%(0.5) -->
+        $click($id('navToolZoomTo100'), changeZoom)
+        $click($id('navToolZoomTo50'), changeZoom)
+
         $click($id('navToolZoomToFit'), changeZoom)
 
         $click($id('navTool15Pen'), (e) => {
