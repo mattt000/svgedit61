@@ -28,8 +28,24 @@ export default {
       /**
     * @type {module}
     */
-    const changeZoom = () => {
-      svgEditor.zoomChanged(window, 'canvas')
+    const changeZoom = (value) => {
+      if (value === 'canvas') {
+        svgEditor.zoomChanged(window, value)
+        return
+      }
+
+      const zoomlevel = Number(value) > 0.1 ? Number(value) * 0.01 : 0.1
+      const zoom = svgCanvas.getZoom()
+      const { workarea } = svgEditor
+      svgEditor.zoomChanged(window, {
+        width: 0,
+        height: 0,
+        // center pt of scroll position
+        x: (workarea.scrollLeft + parseFloat(getComputedStyle(workarea, null).width.replace('px', '')) / 2) / zoom,
+        y: (workarea.scrollTop + parseFloat(getComputedStyle(workarea, null).height.replace('px', '')) / 2) / zoom,
+        zoom: zoomlevel
+      }, true)
+      
     }
     
     const opacity = localStorage.getItem('lineOpacity');
@@ -44,10 +60,10 @@ export default {
         $id('tools_bottom').append(buttonsTemplate.content.cloneNode(true))
 
         // <!-- Raihan, please add the code to implement the zoom 100%(1.0) & 50%(0.5) -->
-        $click($id('navToolZoomTo100'), changeZoom)
-        $click($id('navToolZoomTo50'), changeZoom)
+        $click($id('navToolZoomTo100'), () => changeZoom("100"))
+        $click($id('navToolZoomTo50'), () => changeZoom("50"))
 
-        $click($id('navToolZoomToFit'), changeZoom)
+        $click($id('navToolZoomToFit'), () => changeZoom('canvas'))
 
         $click($id('navTool15Pen'), (e) => {
           localStorage.setItem('fhpathWidth', '1.5mm');

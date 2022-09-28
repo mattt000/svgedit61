@@ -440,6 +440,7 @@ export default {
           const buttonContent = $id('opensaveBottomSaveText').innerHTML;
 
           $id('opensaveBottomSaveText').innerText = 'Saving...';
+          $id('opensaveBottomSave').classList.add('active');
 
           const formData = new FormData();
           formData.append('image', blob, `${fileTitle}.svg`)
@@ -447,6 +448,7 @@ export default {
           try {
             await http.post('/api/templates', formData)
             $id('opensaveBottomSaveText').innerHTML = buttonContent;
+            $id('opensaveBottomSave').classList.remove('active');
           } catch (err) {
             console.log(err);
           }
