@@ -48,7 +48,6 @@ export default {
       
     }
     
-    const opacity = localStorage.getItem('lineOpacity');
     const fhpathWidth = localStorage.getItem('fhpathWidth');
 
     return {
@@ -80,24 +79,24 @@ export default {
         })
         
         $click($id('navTool100Opacity'), (e) => {
-          svgCanvas.changeSelectedAttribute('opacity', 1)
+          const layers = $id('svgcanvas').querySelectorAll('.layer')
+          layers[0].setAttribute('opacity', 1)
+
           localStorage.setItem('lineOpacity', 1);
           e.target.classList.add('active-btn')
           $id("navTool50Opacity").classList.remove('active-btn')
         })
         
         $click($id('navTool50Opacity'), (e) => {
-          svgCanvas.changeSelectedAttribute('opacity', 0.5)
+          const layers = $id('svgcanvas').querySelectorAll('.layer')
+          layers[0].setAttribute('opacity', 0.5)
+
           localStorage.setItem('lineOpacity', 0.5);
           e.target.classList.add('active-btn')
           $id("navTool100Opacity").classList.remove('active-btn')
         })
 
-        if (opacity && opacity === 1) {
-          $id("navTool100Opacity").classList.add('active-btn')
-        } else {
-          $id("navTool50Opacity").classList.add('active-btn')
-        }
+        $id("navTool100Opacity").classList.add('active-btn')
 
         if (fhpathWidth && fhpathWidth === '2mm') {
           $id("navTool2Pen").classList.add('active-btn')

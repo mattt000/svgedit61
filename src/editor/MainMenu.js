@@ -258,7 +258,15 @@ class MainMenu {
         <se-menu-item id="tool_editor_homepage" label="tools.editor_homepage" src="logo.svg"></se-menu-item>
     </se-menu>`
 
+
+    const LogoEl = document.createElement('img');
+    LogoEl.src = './images/teleagam.svg'
+    LogoEl.style.height = "30px";
+    LogoEl.style.width = "auto";
+    LogoEl.style.margin = "5px";
+
     this.editor.$svgEditor.append(template.content.cloneNode(true))
+    this.editor.$svgEditor.append(LogoEl)
 
     // register action to main menu entries
     /**

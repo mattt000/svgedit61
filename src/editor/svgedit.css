@@ -195,7 +195,8 @@ hr {
 —————————————————————————————*/
 
 #main_button {
-  grid-area: auto;
+  /* grid-area: auto; */
+  grid-area: top;
   color: #fff;
   border-radius: 3px;
   padding-block: 2px;
@@ -318,6 +319,7 @@ hr {
 #tools_top>* {
   display: flex;
   flex-direction: row;
+  z-index: 1;
   flex-wrap: wrap;
   background-color: var(--main-bg-color);
 }
@@ -614,6 +616,10 @@ ul li.current {
 
 .dropdown li.tool_button {
   width: 24px;
+}
+/* drawing inside svg content area */
+svg#svgcontent {
+  overflow: hidden;
 }
 
 

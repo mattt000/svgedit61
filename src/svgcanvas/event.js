@@ -134,11 +134,11 @@ const mouseMoveEvent = (evt) => {
     shape.setAttribute('stroke-width', prevStrokeWidth);
   }
 
-  const lineOpacity = localStorage.getItem('lineOpacity')
-  if (lineOpacity) {
-    shape.setAttribute('opacity', lineOpacity);
-    svgCanvas.getStyle().opacity =lineOpacity;
-  }
+  // const lineOpacity = localStorage.getItem('lineOpacity')
+  // if (lineOpacity) {
+  //   shape.setAttribute('opacity', lineOpacity);
+  //   svgCanvas.getStyle().opacity =lineOpacity;
+  // }
 
 
   let realX = mouseX / zoom
