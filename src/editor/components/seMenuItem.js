@@ -116,6 +116,7 @@ export class SeMenuItem extends HTMLElement {
         // launch the click event
         if (this.id) {
           document.getElementById(this.id).click()
+          console.log('click');
         }
         e.preventDefault()
       })

@@ -25,7 +25,7 @@ template.innerHTML = `
   }
   </style>
 
-  <elix-menu-button id="MenuButton" aria-label="Main Menu">
+  <elix-menu-button id="MenuButton" right="0" aria-label="Main Menu">
     <slot></slot>
   </elix-menu-button>
 
