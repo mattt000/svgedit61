@@ -1,16 +1,28 @@
 const API_BASE_URL = 'https://teleagam.outeraspect.com';
 
-const getUser = localStorage.getItem('user');
-const user = JSON.parse(getUser);
-let access_token = '';
+const checkLogin = () => {
+    const getUser = localStorage.getItem('user');
+    const user = JSON.parse(getUser);
 
-if (user) {
-    access_token = user.access_token;
+    if (!user) {
+        return {
+            access_token: null,
+            user: null,
+            isloggedIn: false
+        }
+    }
+
+    return {
+        access_token: user.access_token,
+        user: user.user,
+        isloggedIn: true
+    }
 }
 
 const http = {};
 
 http.get = async (endpoint) => {
+    const {access_token} = checkLogin();
     let options = {
         method: 'GET',
         headers: {
@@ -34,6 +46,7 @@ http.get = async (endpoint) => {
 };
 
 http.post = async (endpoint, body) => {
+    const {access_token} = checkLogin();
     let options = {
         method: 'POST',
         headers: {
@@ -70,6 +83,7 @@ http.post = async (endpoint, body) => {
 
 
 http.put = async (endpoint, body) => {
+    const {access_token} = checkLogin();
     let options = {
         method: 'PUT',
         headers: {
@@ -95,6 +109,7 @@ http.put = async (endpoint, body) => {
 
 
 http.delete = async (endpoint) => {
+    const {access_token} = checkLogin();
     let options = {
         method: 'delete',
         headers: {

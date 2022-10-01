@@ -177,6 +177,10 @@ export default {
           size: blob.size,
           type: blob.type
         })
+
+        setTimeout(() => {
+          svgEditor.zoomChanged(window, 'canvas')
+        }, 1000);
       } catch (err) {
         if (err.name !== 'AbortError') {
           return console.error(err)
@@ -216,7 +220,12 @@ export default {
 
           svgEditor.loadFromURL(currentSrc);
           svgEditor.topPanel.updateTitle(fileName+'-01.svg')
-          openDialopTemplate.remove()
+
+          setTimeout(() => {
+            svgEditor.zoomChanged(window, 'canvas')
+          }, 1000);
+          openDialopTemplate.remove();       
+          
         }
 
         if (e.target.classList.contains('opensaveDeleteBtn')) {
@@ -431,7 +440,7 @@ export default {
           //     extensions: ['.svg']
           //   })
           // }
-          // svgEditor.topPanel.updateTitle(`${fileTitleNext}`)
+          svgEditor.topPanel.updateTitle(`${fileTitleNext}`)
           // svgCanvas.runExtensions('onSavedDocument', {
           //   name: handle.name,
           //   kind: handle.kind
