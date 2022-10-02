@@ -6,11 +6,10 @@
   <title>Layer 1</title>
   <g data-name="Calque 2" id="Calque_2">
    <g data-name="Calque 1" id="Calque_1-2">
-    <rect class="cls-3" height="49.47" id="svg_3" transform="matrix(1, 0, 0, 1, 0, 0)" width="51.04"/>
-    <path class="cls-1" d="m21.43,5.39a16.73,16.73 0 1 0 19.32,25.31" id="svg_1"/>
-    <polygon class="cls-2" id="svg_2" points="29.809999845921993,2.3600001335144043 22.03999938815832,12.099999904632568 17.469999693334103,0.6399998664855957 29.809999845921993,2.3600001335144043 "/>
+    <rect class="cls-3" height="49.47" id="svg_3" transform="matrix(1, 0, 0, 1, 0, 0)" width="51.04" x="0" y="0.23"/>
+    <path d="m19.73,31.05l-0.33,-3.37l3.82,-0.59c9.68,-1.48 19.16,-7.78 24.44,-16.22c0.95,-1.51 1.58,-2.97 1.41,-3.24c-0.4,-0.62 -10.03,-5.53 -10.85,-5.53c-0.34,0 -1.13,0.9 -1.77,2.01c-2.74,4.71 -9.85,9.62 -14.84,10.26l-2.03,0.26l0.35,-2.91c0.36,-3.02 0.27,-3.66 -0.59,-3.66c-0.54,0 -16.7,11.61 -17.16,12.33c-0.35,0.55 1.88,2.57 9.83,8.97c3.46,2.78 6.68,5.05 7.17,5.05c0.77,0 0.84,-0.4 0.55,-3.37l0.01,0.01l-0.01,0z" fill="#ffffff" id="svg_7" stroke="null" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-opacity="null" transform="rotate(-179.665, 25.6198, 18.2554)"/>
    </g>
   </g>
-  <text fill="#ffffff" fill-opacity="null" font-family="Sans-serif" font-size="18" font-weight="bold" id="svg_4" stroke="#000000" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="0.25" text-anchor="middle" x="25.36" xml:space="preserve" y="48.93">REDO</text>
+  <text fill="#ffffff" font-family="Sans-serif" font-size="18" font-weight="bold" id="svg_4" letter-spacing="0" stroke="#000000" stroke-linecap="null" stroke-linejoin="null" stroke-width="0.25" text-anchor="middle" transform="matrix(1, 0, 0, 1, 0, 0)" x="25.23" xml:space="preserve" y="48.99">REDO</text>
  </g>
 </svg>

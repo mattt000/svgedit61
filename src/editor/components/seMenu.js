@@ -7,6 +7,8 @@ template.innerHTML = `
   <style>
   :host {
     padding: 0px;
+    opacity: 10%;
+    border: 0px;
   }
   elix-menu-button::part(menu) {
     background-color: var(--icon-bg-color) !important;

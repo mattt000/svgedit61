@@ -264,6 +264,7 @@ class MainMenu {
     LogoEl.style.height = "30px";
     LogoEl.style.width = "auto";
     LogoEl.style.margin = "5px";
+    LogoEl.style.padding = "0 0 0 18vw";
 
     this.editor.$svgEditor.append(template.content.cloneNode(true))
     this.editor.$svgEditor.append(LogoEl)

@@ -448,7 +448,7 @@ export default {
 
           const buttonContent = $id('opensaveBottomSaveText').innerHTML;
 
-          $id('opensaveBottomSaveText').innerText = 'Saving...';
+          $id('opensaveBottomSaveText').innerText = 'Sending...';
           $id('opensaveBottomSave').classList.add('active');
 
           const formData = new FormData();
