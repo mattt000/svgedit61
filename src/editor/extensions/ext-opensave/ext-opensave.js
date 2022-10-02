@@ -194,9 +194,12 @@ export default {
       const uploadFromPcButton = openDialopTemplate.querySelector('#uploadFromPcButton');
       const closeButton = openDialopTemplate.querySelector('#closeOpenPopUp');
 
+      const {isloggedIn} = checkLogin();
+      if (!isloggedIn) {
+        return
+      }
       document.querySelector('body').appendChild(openDialopTemplate);
       
-      const {isloggedIn} = checkLogin();
 
       const isRemove = removeChilds(imageContainer);        
       if (isRemove && isloggedIn) {
