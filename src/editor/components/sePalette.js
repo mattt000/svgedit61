@@ -2,7 +2,8 @@
 /* eslint-disable max-len */
 const palette = [
   // Todo: Make into configuration item?
-  'none', '#000000', '#ffffff'
+  // 'none', '#000000', '#ffffff'
+  '#ffffff', '#D469A6', '#004B9A', '#49AE42', '#DDDD2C', '#D51023', '#EB5C0A'
 ]
 
 const template = document.createElement('template')
@@ -23,7 +24,7 @@ template.innerHTML = `
   
   #js-se-palette {
     float: left;
-    width: 60px;
+    width: 110px;
     height: 16px;
   }
   
