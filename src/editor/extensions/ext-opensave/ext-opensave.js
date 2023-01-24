@@ -177,10 +177,6 @@ export default {
           size: blob.size,
           type: blob.type
         })
-
-        setTimeout(() => {
-          svgEditor.zoomChanged(window, 'canvas')
-        }, 1000);
       } catch (err) {
         if (err.name !== 'AbortError') {
           return console.error(err)
@@ -223,10 +219,6 @@ export default {
 
           svgEditor.loadFromURL(currentSrc);
           svgEditor.topPanel.updateTitle(fileName+'-01.svg')
-
-          setTimeout(() => {
-            svgEditor.zoomChanged(window, 'canvas')
-          }, 1000);
           openDialopTemplate.remove();       
           
         }
@@ -462,6 +454,7 @@ export default {
             $id('opensaveBottomSaveText').innerHTML = buttonContent;
             $id('opensaveBottomSave').classList.remove('active');
           } catch (err) {
+            $id('opensaveBottomSaveText').innerHTML = buttonContent;
             console.log(err);
           }
           

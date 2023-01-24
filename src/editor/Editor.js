@@ -136,6 +136,7 @@ class Editor extends EditorStartup {
     const success = this.svgCanvas.setSvgString(str) !== false
     if (success) {
       this.updateCanvas()
+      this.zoomChanged(window, 'canvas')
       return
     }
     if (!noAlert) seAlert(this.i18next.t('notification.errorLoadingSVG'))
