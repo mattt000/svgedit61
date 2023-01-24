@@ -51,6 +51,7 @@ export default {
     })
     canvBG.appendChild(canvasGrid)
     const gridDefs = svgdoc.createElementNS(NS.SVG, 'defs')
+    // remove cli
     // grid-pattern
     const gridPattern = svgdoc.createElementNS(NS.SVG, 'pattern')
     assignAttributes(gridPattern, {
