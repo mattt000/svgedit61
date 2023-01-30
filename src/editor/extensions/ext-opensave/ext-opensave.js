@@ -441,10 +441,12 @@ export default {
           //   kind: handle.kind
           // })
 
+
           const buttonContent = $id('opensaveBottomSaveText').innerHTML;
 
           $id('opensaveBottomSaveText').innerText = 'Sending...';
           $id('opensaveBottomSave').classList.add('active');
+          $id('opensaveBottomSave').setAttribute('disabled', true)
 
           const formData = new FormData();
           formData.append('image', blob, `${fileTitle}.svg`)
@@ -453,8 +455,10 @@ export default {
             await http.post('/api/templates', formData)
             $id('opensaveBottomSaveText').innerHTML = buttonContent;
             $id('opensaveBottomSave').classList.remove('active');
+            $id('opensaveBottomSave').removeAttribute('disabled')
           } catch (err) {
             $id('opensaveBottomSaveText').innerHTML = buttonContent;
+            $id('opensaveBottomSave').removeAttribute('disabled')
             console.log(err);
           }
           
